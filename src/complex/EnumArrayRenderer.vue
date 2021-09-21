@@ -1,7 +1,7 @@
 <template>
-  <v-layout v-if="control.visible" row>
-    <v-flex v-for="(o, index) in control.options" :key="o.value">
-      <v-container fluid>
+  <v-container fluid v-if="control.visible">
+    <v-row>
+      <v-col v-for="(o, index) in control.options" :key="o.value">
         <v-checkbox
           :label="o.label"
           :value="o.value"
@@ -14,9 +14,9 @@
           v-model="control.data"
           @change="onChange"
         ></v-checkbox>
-      </v-container>
-    </v-flex>
-  </v-layout>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <script lang="ts">
@@ -37,7 +37,7 @@ import {
   Dispatch,
   CoreActions,
 } from "@jsonforms/core";
-import { VCheckbox, VLayout, VFlex } from "vuetify/lib";
+import { VCheckbox, VContainer, VRow, VCol } from "vuetify/lib";
 import {
   DispatchRenderer,
   rendererProps,
@@ -62,8 +62,9 @@ const controlRenderer = defineComponent({
   components: {
     DispatchRenderer,
     VCheckbox,
-    VLayout,
-    VFlex,
+    VContainer,
+    VRow,
+    VCol,
   },
   props: {
     ...rendererProps<ControlElement>(),
