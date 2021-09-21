@@ -83,91 +83,90 @@
 
 <script lang="ts">
 import { VuetifyThemeVariant } from "vuetify/types/services/theme";
-import { preset } from "../plugins/vuetify";
 import merge from "lodash/merge";
 import cloneDeep from "lodash/cloneDeep";
+
+const defaultTheme = {
+  name: "Default",
+  light: {
+    primary: "#1976D2",
+    secondary: "#424242",
+    accent: "#82B1FF",
+    error: "#FF5252",
+    info: "#2196F3",
+    success: "#4CAF50",
+    warning: "#FB8C00",
+  },
+  dark: {
+    primary: "#2196F3",
+    secondary: "#424242",
+    accent: "#FF4081",
+    error: "#FF5252",
+    info: "#2196F3",
+    success: "#4CAF50",
+    warning: "#FB8C00",
+  },
+};
 
 export default {
   name: "ThemeChanger",
   data: () => ({
     menu: false,
     themes: [
+      defaultTheme,
       {
-        name: "Default",
-        ...preset.theme?.themes,
-      },
-      {
-        name: "Crane",
-        ...merge(cloneDeep(preset.theme?.themes), {
+        ...merge(cloneDeep(defaultTheme), {
+          name: "Basil",
           light: {
-            primary: "#5D1049",
-            secondary: "#E30425",
-            accent: "#4E0D3A",
+            primary: "#356859",
+            secondary: "#FD5523",
+            accent: "#37966F",
+            info: "#356859",
           },
         }),
       },
       {
-        name: "Theme 1",
-        dark: {
-          primary: "#21CFF3",
-          accent: "#FF4081",
-          secondary: "#21dc79",
-          success: "#86af3f",
-          info: "#f34fc6",
-          warning: "#FB8C00",
-          error: "#FF5252",
-        },
-        light: {
-          primary: "#22daff",
-          accent: "#ff6b99",
-          secondary: "#26ff8c",
-          success: "#a5d64c",
-          info: "#ff53d0",
-          warning: "#ff8e00",
-          error: "#ff5252",
-        },
+        ...merge(cloneDeep(defaultTheme), {
+          name: "Crane",
+          light: {
+            primary: "#5D1049",
+            secondary: "#E30425",
+            accent: "#4E0D3A",
+            info: "#5D1049",
+          },
+        }),
       },
       {
-        name: "Theme 2",
-        dark: {
-          primary: "#E65100",
-          accent: "#7CB342",
-          secondary: "#689F38",
-          success: "#4CAF50",
-          info: "#6156d8",
-          warning: "#1565C0",
-          error: "#FF7043",
-        },
-        light: {
-          primary: "#ffa450",
-          accent: "#a1e754",
-          secondary: "#92de4e",
-          success: "#6dff74",
-          info: "#7365ff",
-          warning: "#2e8ac0",
-          error: "#ff5e3c",
-        },
+        ...merge(cloneDeep(defaultTheme), {
+          name: "Fortnightly",
+          light: {
+            primary: "#6B38FB",
+            secondary: "#6B38FB",
+            info: "#6B38FB",
+          },
+        }),
       },
       {
-        name: "Theme 3",
-        dark: {
-          primary: "#33691E",
-          accent: "#FFCA28",
-          secondary: "#607D8B",
-          success: "#FFEB3B",
-          info: "#2196F3",
-          warning: "#9C27B0",
-          error: "#B71C1C",
-        },
-        light: {
-          primary: "#6ae240",
-          accent: "#ffe063",
-          secondary: "#7ea4b6",
-          success: "#ffea70",
-          info: "#229eff",
-          warning: "#e239ff",
-          error: "#e82424",
-        },
+        ...merge(cloneDeep(defaultTheme), {
+          name: "Owl",
+          light: {
+            primary: "#FFDE03",
+            secondary: "#0336FF",
+            accent: "#FF0266",
+            info: "#FFDE03",
+          },
+        }),
+      },
+      {
+        ...merge(cloneDeep(defaultTheme), {
+          name: "Shrine",
+          light: {
+            primary: "#FEDBD0",
+            secondary: "#FEEAE6",
+            accent: "#442C2E",
+            info: "#FEDBD0",
+          },
+        }),
       },
     ],
   }),
