@@ -7,8 +7,8 @@
 </template>
 
 <script lang="ts">
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
-import { PropType } from "vue";
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
+import { PropType } from 'vue';
 
 export type MonacoApi = typeof monaco;
 
@@ -26,12 +26,12 @@ interface BaseComponentData {
 
 export default {
   props: {
-    width: { type: [String, Number], default: "100%" },
-    height: { type: [String, Number], default: "100%" },
+    width: { type: [String, Number], default: '100%' },
+    height: { type: [String, Number], default: '100%' },
     value: String,
-    defaultValue: { type: String, default: "" },
-    language: { type: String, default: "javascript" },
-    theme: { type: String, default: "vs" },
+    defaultValue: { type: String, default: '' },
+    language: { type: String, default: 'javascript' },
+    theme: { type: String, default: 'vs' },
     options: {
       type: Object,
       default() {
@@ -54,7 +54,7 @@ export default {
       ) => undefined,
     },
     editorBeforeMount: {
-      type: Function as PropType<(api: MonacoApi) => Object>,
+      type: Function as PropType<(api: MonacoApi) => Record<string, any>>,
       default: (_api: MonacoApi) => undefined,
     },
     className: { type: String, required: false },
@@ -176,17 +176,17 @@ export default {
       this.editorDidMount(this.editor);
     },
 
-    editorWillMount(): Object {
+    editorWillMount(): Record<string, any> {
       const options = this.editorBeforeMount(monaco);
       return options || {};
     },
 
-    editorDidMount(editor: monaco.editor.IStandaloneCodeEditor) {
+    editorDidMount(editor: monaco.editor.IStandaloneCodeEditor): void {
       this.editorMounted(editor, monaco);
 
       this.subscription = editor.onDidChangeModelContent((event) => {
         if (!this.prevent_trigger_change_event) {
-          this.$emit("change", editor.getValue(), event);
+          this.$emit('change', editor.getValue(), event);
         }
       });
     },
