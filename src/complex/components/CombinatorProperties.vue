@@ -9,9 +9,9 @@
 </template>
 
 <script lang="ts">
-import { Generate, JsonSchema, UISchemaElement } from "@jsonforms/core";
+import { Generate, JsonSchema, Layout, UISchemaElement } from "@jsonforms/core";
 import _ from "lodash";
-import { defineComponent } from "../../../config/vue";
+import { CompType, defineComponent } from "../../../config/vue";
 import { DispatchRenderer } from "../../../config/jsonforms";
 
 interface CombinatorProps {
@@ -27,12 +27,12 @@ export default defineComponent({
   },
   props: {
     schema: {
+      type: Object as CompType<JsonSchema, ObjectConstructor>,
       required: true,
-      type: JsonSchema,
     },
     combinatorKeyword: {
+      type: String as CompType<"oneOf" | "anyOf", StringConstructor>,
       required: true,
-      type: "oneOf" | "anyOf",
     },
     path: {
       required: true,
@@ -50,7 +50,7 @@ export default defineComponent({
     );
 
     const isLayout = (uischema: UISchemaElement): uischema is Layout =>
-      uischema.hasOwnProperty("elements");
+      Object.prototype.hasOwnProperty.call(uischema, "elements");
 
     let isLayoutWithElements = false;
     if (foundUISchema !== null && isLayout(foundUISchema)) {
