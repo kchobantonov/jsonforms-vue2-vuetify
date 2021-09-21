@@ -20,8 +20,8 @@ function processSize(size: number | string) {
 
 interface BaseComponentData {
   editor?: monaco.editor.IStandaloneCodeEditor;
-  _subscription?: monaco.IDisposable;
-  __prevent_trigger_change_event?: boolean;
+  subscription?: monaco.IDisposable;
+  prevent_trigger_change_event?: boolean;
 }
 
 export default {
@@ -62,8 +62,8 @@ export default {
   data(): BaseComponentData {
     return {
       editor: undefined,
-      _subscription: undefined,
-      __prevent_trigger_change_event: undefined,
+      subscription: undefined,
+      prevent_trigger_change_event: undefined,
     };
   },
   mounted() {
@@ -89,21 +89,20 @@ export default {
         const { editor } = this;
         const model = editor.getModel();
         if (this.value != null && this.value !== model?.getValue()) {
-          this.__prevent_trigger_change_event = true;
+          this.prevent_trigger_change_event = true;
           this.editor.pushUndoStop();
-          // pushEditOperations says it expects a cursorComputer, but doesn't seem to need one.
-          // @ts-expect-error
-          model.pushEditOperations(
+          model?.pushEditOperations(
             [],
             [
               {
                 range: model?.getFullModelRange(),
                 text: value,
               },
-            ]
+            ],
+            () => null
           );
           this.editor.pushUndoStop();
-          this.__prevent_trigger_change_event = false;
+          this.prevent_trigger_change_event = false;
         }
       }
     },
@@ -152,8 +151,8 @@ export default {
           model.dispose();
         }
       }
-      if (this._subscription) {
-        this._subscription.dispose();
+      if (this.subscription) {
+        this.subscription.dispose();
       }
     },
 
@@ -185,8 +184,8 @@ export default {
     editorDidMount(editor: monaco.editor.IStandaloneCodeEditor) {
       this.editorMounted(editor, monaco);
 
-      this._subscription = editor.onDidChangeModelContent((event) => {
-        if (!this.__prevent_trigger_change_event) {
+      this.subscription = editor.onDidChangeModelContent((event) => {
+        if (!this.prevent_trigger_change_event) {
           this.$emit("change", editor.getValue(), event);
         }
       });
