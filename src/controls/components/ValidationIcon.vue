@@ -8,7 +8,7 @@
 <script lang="ts">
 import { defineComponent, CompType } from "../../../config/vue";
 import { ErrorObject } from "ajv";
-import { ValidationBadge } from "./";
+import { default as ValidationBadge } from './ValidationBadge.vue';
 import { VIcon } from "vuetify/lib";
 
 export default defineComponent({
