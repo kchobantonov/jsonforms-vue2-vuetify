@@ -81,7 +81,12 @@ const layoutRenderer = defineComponent({
 
       return (this.layout.uischema as Categorization).elements.filter(
         (category: Category | Categorization) =>
-          isVisible(category, this.layout.data, undefined, jsonforms?.core?.ajv)
+          isVisible(
+            category,
+            this.layout.data,
+            this.layout.path,
+            jsonforms?.core?.ajv!
+          )
       );
     },
   },

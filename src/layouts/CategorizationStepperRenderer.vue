@@ -130,12 +130,19 @@ const layoutRenderer = defineComponent({
       const jsonforms = inject<JsonFormsSubStates>("jsonforms");
 
       if (!jsonforms) {
-        throw "'jsonforms' couldn't be injected. Are you within JSON Forms?";
+        throw new Error(
+          "'jsonforms' couldn't be injected. Are you within JSON Forms?"
+        );
       }
 
       return (this.layout.uischema as Categorization).elements.filter(
         (category: Category | Categorization) =>
-          isVisible(category, this.layout.data, undefined, jsonforms?.core?.ajv)
+          isVisible(
+            category,
+            this.layout.data,
+            this.layout.path,
+            jsonforms?.core?.ajv!
+          )
       );
     },
   },
