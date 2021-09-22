@@ -24,6 +24,7 @@
               :disabled="
                 !control.enabled ||
                 (appliedOptions.restrict &&
+                  arraySchema !== undefined &&
                   arraySchema.maxItems !== undefined &&
                   control.data.length >= arraySchema.maxItems)
               "
@@ -145,6 +146,7 @@
                         :disabled="
                           !control.enabled ||
                           (appliedOptions.restrict &&
+                            arraySchema !== undefined &&
                             arraySchema.minItems !== undefined &&
                             control.data.length <= arraySchema.minItems)
                         "
@@ -242,7 +244,7 @@ const controlRenderer = defineComponent({
       return !this.control.data || this.control.data.length === 0;
     },
     //TODO: check is that is the appropate way to get the array schema, possibly it would be better for the core to have a property that exports that schema
-    arraySchema(): JsonSchema {
+    arraySchema(): JsonSchema | undefined {
       return Resolve.schema(
         this.control.rootSchema,
         this.control.uischema.scope,

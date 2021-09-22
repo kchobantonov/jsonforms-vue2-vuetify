@@ -24,6 +24,7 @@
               :disabled="
                 !control.enabled ||
                 (appliedOptions.restrict &&
+                  arraySchema !== undefined &&
                   arraySchema.maxItems !== undefined &&
                   control.data.length >= arraySchema.maxItems)
               "
@@ -39,16 +40,22 @@
     <v-card-text>
       <v-container justify-space-around align-content-center>
         <v-row justify="center">
-          <v-expansion-panels accordion>
+          <v-expansion-panels accordion ref="accordion">
             <v-expansion-panel
               v-for="(element, index) in control.data"
               :key="`${control.path}-${index}`"
               :class="styles.arrayList.item"
             >
               <v-expansion-panel-header :class="styles.arrayList.itemHeader">
-                <v-container grid-list-xl flex style="padding: 0px">
-                  <v-layout row>
-                    <v-flex align-self-center shrink>
+                <v-container py-0>
+                  <v-row
+                    :style="`display: grid; grid-template-columns: min-content auto min-content ${
+                      appliedOptions.showSortButtons
+                        ? 'min-content min-content'
+                        : ''
+                    }`"
+                  >
+                    <v-col align-self="center" px-0>
                       <validation-badge
                         overlap
                         bordered
@@ -60,20 +67,21 @@
                           }}</span></v-avatar
                         >
                       </validation-badge>
-                    </v-flex>
+                    </v-col>
 
-                    <v-flex
-                      align-self-center
-                      grow
-                      :class="styles.arrayList.itemLabel"
-                      >{{ childLabelForIndex(index) }}</v-flex
+                    <v-col
+                      align-self="center"
+                      :class="`text-truncate ${styles.arrayList.itemLabel}`"
+                      >{{ childLabelForIndex(index) }}</v-col
                     >
-                    <v-flex align-self-center shrink>
+                    <v-col
+                      align-self="center"
+                      v-if="appliedOptions.showSortButtons"
+                    >
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on: onTooltip }">
                           <v-btn
                             v-on="onTooltip"
-                            v-if="appliedOptions.showSortButtons"
                             fab
                             text
                             elevation="0"
@@ -89,11 +97,15 @@
                         </template>
                         Move Up
                       </v-tooltip>
+                    </v-col>
+                    <v-col
+                      align-self="center"
+                      v-if="appliedOptions.showSortButtons"
+                    >
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on: onTooltip }">
                           <v-btn
                             v-on="onTooltip"
-                            v-if="appliedOptions.showSortButtons"
                             fab
                             text
                             elevation="0"
@@ -112,6 +124,8 @@
                         </template>
                         Move Down
                       </v-tooltip>
+                    </v-col>
+                    <v-col align-self="center">
                       <v-tooltip bottom>
                         <template v-slot:activator="{ on: onTooltip }">
                           <v-btn
@@ -126,6 +140,7 @@
                             :disabled="
                               !control.enabled ||
                               (appliedOptions.restrict &&
+                                arraySchema !== undefined &&
                                 arraySchema.minItems !== undefined &&
                                 control.data.length <= arraySchema.minItems)
                             "
@@ -136,8 +151,8 @@
                         </template>
                         Delete
                       </v-tooltip>
-                    </v-flex>
-                  </v-layout>
+                    </v-col>
+                  </v-row>
                 </v-container>
               </v-expansion-panel-header>
               <v-expansion-panel-content :class="styles.arrayList.itemContent">
@@ -186,6 +201,8 @@ import {
   VCardText,
   VRow,
   VCol,
+  VLayout,
+  VFlex,
   VContainer,
   VToolbar,
   VToolbarTitle,
@@ -212,6 +229,8 @@ const controlRenderer = defineComponent({
     VAvatar,
     VRow,
     VCol,
+    VLayout,
+    VFlex,
     VToolbar,
     VToolbarTitle,
     VTooltip,
@@ -237,7 +256,7 @@ const controlRenderer = defineComponent({
       return !this.control.data || this.control.data.length === 0;
     },
     //TODO: check is that is the appropate way to get the array schema, possibly it would be better for the core to have a property that exports that schema
-    arraySchema(): JsonSchema {
+    arraySchema(): JsonSchema | undefined {
       return Resolve.schema(
         this.control.rootSchema,
         this.control.uischema.scope,
