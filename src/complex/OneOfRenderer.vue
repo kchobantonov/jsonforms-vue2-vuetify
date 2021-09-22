@@ -46,15 +46,7 @@
           <v-spacer></v-spacer>
 
           <v-btn text @click="cancel"> No </v-btn>
-
-          <v-btn
-            text
-            ref="confirm"
-            @click="confirm"
-            :disabled="!control.enabled"
-          >
-            Yes
-          </v-btn>
+          <v-btn text ref="confirm" @click="confirm"> Yes </v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -70,6 +62,12 @@ import {
   rankWith,
   createDefaultValue,
   resolveSubSchemas,
+  JsonFormsSubStates,
+  isInherentlyEnabled,
+  getConfig,
+  getSchema,
+  getData,
+  ControlProps,
 } from "@jsonforms/core";
 import {
   DispatchRenderer,
@@ -90,11 +88,35 @@ import {
   VTabsItems,
   VTabItem,
 } from "vuetify/lib";
-import { defineComponent, ref } from "../../config/vue";
+import { computed, defineComponent, inject, ref } from "../../config/vue";
 import { useVuetifyControl } from "../util";
 import { CombinatorProperties } from "./components";
 import isEmpty from "lodash/isEmpty";
 import Vue from "vue";
+
+// TODO: currently mapStateToOneOfProps in core does not provide control enabled property
+// currently used in handleTabChange when switching to the next tab and data needs to be cleared but no data changed should happend
+// for example when the JsonForm is in read only state no data should be modified
+const isControlEnabled = (
+  ownProps: ControlProps,
+  jsonforms: JsonFormsSubStates
+): boolean => {
+  const state = { jsonforms };
+  const config = getConfig(state);
+  const rootData = getData(state);
+  const { uischema } = ownProps;
+
+  const rootSchema = getSchema(state);
+
+  return isInherentlyEnabled(
+    state,
+    ownProps,
+    uischema,
+    ownProps.schema || rootSchema,
+    rootData,
+    config
+  );
+};
 
 const controlRenderer = defineComponent({
   name: "oneof-renderer",
@@ -139,6 +161,17 @@ const controlRenderer = defineComponent({
     const newSelectedIndex = ref(0);
     const dialog = ref(false);
 
+    // TODO: once the enabled property is mapped by JsonForms core we can remove this jsonforms and controlEnabled variables
+    const jsonforms = inject<JsonFormsSubStates>("jsonforms");
+    if (!jsonforms) {
+      throw new Error(
+        "'jsonforms' couldn't be injected. Are you within JSON Forms?"
+      );
+    }
+    const controlEnabled = computed(() =>
+      isControlEnabled(props as ControlProps, jsonforms)
+    );
+
     return {
       ...useVuetifyControl(input),
       _schema,
@@ -147,11 +180,13 @@ const controlRenderer = defineComponent({
       tabIndex,
       dialog,
       newSelectedIndex,
+      controlEnabled,
     };
   },
   methods: {
     handleTabChange(): void {
-      if (!isEmpty(this.control.data)) {
+      // TODO change this.controlEnabled to this.control.enabled once this is suppored by JsonForms core - see above TODO comments
+      if (this.controlEnabled && !isEmpty(this.control.data)) {
         this.dialog = true;
         this.$nextTick(() => {
           this.newSelectedIndex = this.tabIndex;
