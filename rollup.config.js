@@ -26,7 +26,10 @@ const buildFormats = [
       "lodash/merge",
       "lodash/mergeWith",
       "lodash/cloneDeep",
-      "lodash/findIndex",      
+      "lodash/findIndex",
+      "lodash/isArray",
+      "lodash/every",
+      "lodash/isString",           
     ],
     plugins: [
       peerDepsExternal({

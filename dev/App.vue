@@ -207,7 +207,7 @@ type JsonInput = {
   title: string;
   schema?: JsonSchema;
   uischema?: UISchemaElement;
-  data: any;
+  data: Record<string, any>;
 } | null;
 
 export default defineComponent({
