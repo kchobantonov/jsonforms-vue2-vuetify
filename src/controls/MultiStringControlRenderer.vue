@@ -9,7 +9,7 @@
       <v-textarea
         v-disabled-icon-focus
         :id="control.id + '-input'"
-        :class="styles.control.textarea"
+        :class="styles.control.input"
         :disabled="!control.enabled"
         :autofocus="appliedOptions.focus"
         :placeholder="appliedOptions.placeholder"
