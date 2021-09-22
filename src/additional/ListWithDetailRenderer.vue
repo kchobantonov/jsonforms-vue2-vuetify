@@ -230,6 +230,7 @@ import {
   VExpansionPanel,
   VExpansionPanelHeader,
   VExpansionPanelContent,
+  VVirtualScroll,
 } from "vuetify/lib";
 import { ValidationIcon, ValidationBadge } from "../controls/components/index";
 import { ErrorObject } from "ajv";
@@ -261,6 +262,7 @@ const controlRenderer = defineComponent({
     VContainer,
     ValidationIcon,
     ValidationBadge,
+    VVirtualScroll,
   },
   props: {
     ...rendererProps<ControlElement>(),
