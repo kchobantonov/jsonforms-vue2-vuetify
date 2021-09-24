@@ -7,4 +7,4 @@ import { entry as autocompleteOneOfEnumControlRendererEntry } from './Autocomple
 export const extendedRenderers = [
   autocompleteEnumControlRendererEntry,
   autocompleteOneOfEnumControlRendererEntry,
-]
+];

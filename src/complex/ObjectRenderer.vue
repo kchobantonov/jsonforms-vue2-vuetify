@@ -21,19 +21,19 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   UISchemaElement,
-} from "@jsonforms/core";
-import isEmpty from "lodash/isEmpty";
+} from '@jsonforms/core';
+import isEmpty from 'lodash/isEmpty';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useJsonFormsControlWithDetail,
-} from "../../config/jsonforms";
-import { defineComponent } from "../../config/vue";
-import { useVuetifyControl } from "../util";
+} from '@jsonforms/vue2';
+import { defineComponent } from '../vue';
+import { useVuetifyControl } from '../util';
 
 const controlRenderer = defineComponent({
-  name: "object-renderer",
+  name: 'object-renderer',
   components: {
     DispatchRenderer,
   },
@@ -50,13 +50,13 @@ const controlRenderer = defineComponent({
         this.control.schema,
         this.control.uischema.scope,
         this.control.path,
-        "Group",
+        'Group',
         this.control.uischema,
         this.control.rootSchema
       );
 
       if (isEmpty(this.control.path)) {
-        result.type = "VerticalLayout";
+        result.type = 'VerticalLayout';
       } else {
         (result as GroupLayout).label = this.control.label;
       }

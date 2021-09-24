@@ -36,19 +36,19 @@ import {
   and,
   isLayout,
   uiTypeIs,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyLayout } from "../util";
-import { VCard, VCardTitle, VCardText } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { useVuetifyLayout } from '../util';
+import { VCard, VCardTitle, VCardText } from 'vuetify/lib';
 
 const layoutRenderer = defineComponent({
-  name: "group-renderer",
+  name: 'group-renderer',
   components: {
     DispatchRenderer,
     VCard,
@@ -72,6 +72,6 @@ export default layoutRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: layoutRenderer,
-  tester: rankWith(2, and(isLayout, uiTypeIs("Group"))),
+  tester: rankWith(2, and(isLayout, uiTypeIs('Group'))),
 };
 </script>

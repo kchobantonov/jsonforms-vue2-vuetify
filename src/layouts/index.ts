@@ -1,6 +1,8 @@
 import {
-  JsonFormsRendererRegistryEntry, rankWith, isLayout
-} from "@jsonforms/core";
+  JsonFormsRendererRegistryEntry,
+  rankWith,
+  isLayout,
+} from '@jsonforms/core';
 
 import { entry as arrayLayoutRendererEntry } from './ArrayLayoutRenderer.vue';
 import { entry as categorizationRendererEntry } from './CategorizationRenderer.vue';
@@ -31,4 +33,4 @@ export const layoutRenderers = [
   groupRendererEntry,
   horizontalLayoutRendererEntry,
   verticalLayoutRendererEntry,
-]
+];

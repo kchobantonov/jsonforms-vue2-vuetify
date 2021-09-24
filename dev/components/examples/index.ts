@@ -38,156 +38,156 @@ import { input as huge } from './huge';
 import { input as ifThenElse } from './if-then-else';
 
 export const examples = [
-    {
-        title: "Main",
-        input: main
-    },
-    {
-        title: "Basic",
-        input: basic
-    },
-    {
-        title: "Control",
-        input: control
-    },
-    {
-        title: "Control Options",
-        input: controlOptions
-    },
-    {
-        title: "Enum",
-        input: enumExample
-    },    
-    {
-        title: "Enum In Array",
-        input: enumInArray
-    },    
-    {
-        title: "Multi Enum",
-        input: multiEnum
-    },    
-    {
-        title: "Categorization",
-        input: categorization
-    },
-    {
-        title: "Categorization Stepper",
-        input: categorizationStepper
-    },
-    {
-        title: "Categorization Stepper With Navigation",
-        input: categorizationStepperNav
-    },
-    {
-        title: "Horizontal Layout",
-        input: horizontalLayout
-    },
-    {
-        title: "Vertical Layout",
-        input: verticalLayout
-    },
-    {
-        title: "Group Layout",
-        input: groupLayout
-    },
-    {
-        title: "Nested Layout",
-        input: nestedLayout
-    },
-    {
-        title: "Array",
-        input: array
-    },
-    {
-        title: "Array Min/Max Items",
-        input: arrayRestrict
-    },
-    {
-        title: "Array With Reorder",
-        input: arrayWithReorder
-    },
-    {
-        title: "Nested Array",
-        input: nestedArray
-    },
-    {
-        title: "Nested Array Min/Max Items",
-        input: nestedArrayRestrict
-    },
-    {
-        title: "Nested Array With Reorder",
-        input: nestedArrayWithReorder
-    },
-    {
-        title: "Rule",
-        input: rule
-    },
-    {
-        title: "Login",
-        input: login
-    },
-    {
-        title: "Radio",
-        input: radio
-    },
-    {
-        title: "Radio Group",
-        input: radioGroup
-    },
-    {
-        title: "Object",
-        input: object
-    },
-    {
-        title: "Root Object",
-        input: rootObject
-    },
-    {
-        title: "Generate UI Schema",
-        input: noUISchema
-    },
-    {
-        title: "Generate Both Schemas",
-        input: noSchemas
-    },
-    {
-        title: "Combinators oneOf",
-        input: oneOf
-    },
-    {
-        title: "Combinators oneOf recursive",
-        input: oneOfRecursive
-    },
-    {
-        title: "Combinators anyOf",
-        input: anyOf
-    },
-    {
-        title: "Combinators anyOf simple",
-        input: anyOfSimple
-    },
-    {
-        title: "Combinators allOf",
-        input: allOf
-    },
-    {
-        title: "List With Details",
-        input: listWithDetails
-    },
-    {
-        title: "List With Details Min/Max Items",
-        input: listWithDetailsRestrict
-    },
-    {
-        title: "List With Details And Reorder",
-        input: listWithDetailsAndReorder
-    },
-    {
-        title: "If Then Else",
-        input: ifThenElse
-    },
-    {
-        title: "Huge",
-        input: huge
-    },
-]
+  {
+    title: 'Main',
+    input: main,
+  },
+  {
+    title: 'Basic',
+    input: basic,
+  },
+  {
+    title: 'Control',
+    input: control,
+  },
+  {
+    title: 'Control Options',
+    input: controlOptions,
+  },
+  {
+    title: 'Enum',
+    input: enumExample,
+  },
+  {
+    title: 'Enum In Array',
+    input: enumInArray,
+  },
+  {
+    title: 'Multi Enum',
+    input: multiEnum,
+  },
+  {
+    title: 'Categorization',
+    input: categorization,
+  },
+  {
+    title: 'Categorization Stepper',
+    input: categorizationStepper,
+  },
+  {
+    title: 'Categorization Stepper With Navigation',
+    input: categorizationStepperNav,
+  },
+  {
+    title: 'Horizontal Layout',
+    input: horizontalLayout,
+  },
+  {
+    title: 'Vertical Layout',
+    input: verticalLayout,
+  },
+  {
+    title: 'Group Layout',
+    input: groupLayout,
+  },
+  {
+    title: 'Nested Layout',
+    input: nestedLayout,
+  },
+  {
+    title: 'Array',
+    input: array,
+  },
+  {
+    title: 'Array Min/Max Items',
+    input: arrayRestrict,
+  },
+  {
+    title: 'Array With Reorder',
+    input: arrayWithReorder,
+  },
+  {
+    title: 'Nested Array',
+    input: nestedArray,
+  },
+  {
+    title: 'Nested Array Min/Max Items',
+    input: nestedArrayRestrict,
+  },
+  {
+    title: 'Nested Array With Reorder',
+    input: nestedArrayWithReorder,
+  },
+  {
+    title: 'Rule',
+    input: rule,
+  },
+  {
+    title: 'Login',
+    input: login,
+  },
+  {
+    title: 'Radio',
+    input: radio,
+  },
+  {
+    title: 'Radio Group',
+    input: radioGroup,
+  },
+  {
+    title: 'Object',
+    input: object,
+  },
+  {
+    title: 'Root Object',
+    input: rootObject,
+  },
+  {
+    title: 'Generate UI Schema',
+    input: noUISchema,
+  },
+  {
+    title: 'Generate Both Schemas',
+    input: noSchemas,
+  },
+  {
+    title: 'Combinators oneOf',
+    input: oneOf,
+  },
+  {
+    title: 'Combinators oneOf recursive',
+    input: oneOfRecursive,
+  },
+  {
+    title: 'Combinators anyOf',
+    input: anyOf,
+  },
+  {
+    title: 'Combinators anyOf simple',
+    input: anyOfSimple,
+  },
+  {
+    title: 'Combinators allOf',
+    input: allOf,
+  },
+  {
+    title: 'List With Details',
+    input: listWithDetails,
+  },
+  {
+    title: 'List With Details Min/Max Items',
+    input: listWithDetailsRestrict,
+  },
+  {
+    title: 'List With Details And Reorder',
+    input: listWithDetailsAndReorder,
+  },
+  {
+    title: 'If Then Else',
+    input: ifThenElse,
+  },
+  {
+    title: 'Huge',
+    input: huge,
+  },
+];

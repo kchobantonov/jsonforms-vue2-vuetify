@@ -13,10 +13,10 @@ import { entry as objectRendererEntry } from './ObjectRenderer.vue';
 import { entry as oneOfRendererEntry } from './OneOfRenderer.vue';
 
 export const complexRenderers = [
-    allOfRendererEntry,
-    anyOfRendererEntry,
-    arrayControlRendererEntry,
-    enumArrayRendererEntry,
-    objectRendererEntry,
-    oneOfRendererEntry,
-]
+  allOfRendererEntry,
+  anyOfRendererEntry,
+  arrayControlRendererEntry,
+  enumArrayRendererEntry,
+  objectRendererEntry,
+  oneOfRendererEntry,
+];

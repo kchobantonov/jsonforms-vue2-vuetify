@@ -5,26 +5,24 @@
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
   >
-      <v-text-field
-        type="number"
-        :step="step"
-        :id="control.id + '-input'"
-        :class="styles.control.input"
-        :disabled="!control.enabled"
-        :autofocus="appliedOptions.focus"
-        :placeholder="appliedOptions.placeholder"
-        :label="computedLabel"
-        :hint="control.description"
-        :persistent-hint="persistentHint()"
-        :required="control.required"
-        :error-messages="control.errors"
-
-        v-model="control.data"
-
-        @change="onChange"
-        @focus="isFocused = true"
-        @blur="isFocused = false"
-      />
+    <v-text-field
+      type="number"
+      :step="step"
+      :id="control.id + '-input'"
+      :class="styles.control.input"
+      :disabled="!control.enabled"
+      :autofocus="appliedOptions.focus"
+      :placeholder="appliedOptions.placeholder"
+      :label="computedLabel"
+      :hint="control.description"
+      :persistent-hint="persistentHint()"
+      :required="control.required"
+      :error-messages="control.errors"
+      v-model="control.data"
+      @change="onChange"
+      @focus="isFocused = true"
+      @blur="isFocused = false"
+    />
   </control-wrapper>
 </template>
 
@@ -33,10 +31,14 @@ import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
   rankWith,
-  isNumberControl
+  isNumberControl,
 } from '@jsonforms/core';
-import { defineComponent } from '../../config/vue';
-import { rendererProps, useJsonFormsControl, RendererProps } from '../../config/jsonforms';
+import { defineComponent } from '../vue';
+import {
+  rendererProps,
+  useJsonFormsControl,
+  RendererProps,
+} from '@jsonforms/vue2';
 import { default as ControlWrapper } from './ControlWrapper.vue';
 import { useVuetifyControl } from '../util';
 import { VTextField } from 'vuetify/lib';
@@ -45,29 +47,29 @@ const controlRenderer = defineComponent({
   name: 'number-control-renderer',
   components: {
     ControlWrapper,
-    VTextField
+    VTextField,
   },
   props: {
-    ...rendererProps<ControlElement>()
+    ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    const toNumber = (value: string) => value === '' ? undefined : parseFloat(value);
+    const toNumber = (value: string) =>
+      value === '' ? undefined : parseFloat(value);
 
     return useVuetifyControl(useJsonFormsControl(props), toNumber);
-    //return useVuetifyControl(useJsonFormsControl(props), target => Number(target.value));
   },
   computed: {
     step(): number {
       const options: any = this.appliedOptions;
       return options.step ?? 0.1;
-    }
-  }
+    },
+  },
 });
 
 export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(1, isNumberControl)
+  tester: rankWith(1, isNumberControl),
 };
 </script>

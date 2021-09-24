@@ -40,19 +40,19 @@ import {
   isVisible,
   JsonFormsSubStates,
   categorizationHasCategory,
-} from "@jsonforms/core";
-import { defineComponent, inject, ref } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent, inject, ref } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyLayout } from "../util";
-import { VCard, VTabs, VTab, VTabsItems, VTabItem } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { useVuetifyLayout } from '../util';
+import { VCard, VTabs, VTab, VTabsItems, VTabItem } from 'vuetify/lib';
 
 const layoutRenderer = defineComponent({
-  name: "categorization-renderer",
+  name: 'categorization-renderer',
   components: {
     DispatchRenderer,
     VCard,
@@ -71,7 +71,7 @@ const layoutRenderer = defineComponent({
   },
   computed: {
     visibleCategories(): (Category | Categorization)[] {
-      const jsonforms = inject<JsonFormsSubStates>("jsonforms");
+      const jsonforms = inject<JsonFormsSubStates>('jsonforms');
 
       if (!jsonforms) {
         throw new Error(
@@ -95,7 +95,7 @@ const layoutRenderer = defineComponent({
 export default layoutRenderer;
 
 export const isSingleLevelCategorization: Tester = and(
-  uiTypeIs("Categorization"),
+  uiTypeIs('Categorization'),
   categorizationHasCategory
 );
 

@@ -5,54 +5,54 @@
 </template>
 
 <script lang="ts">
-import { isDescriptionHidden, computeLabel } from "@jsonforms/core";
-import { defineComponent, CompType } from "../../config/vue";
-import { Styles } from "../styles";
-import { Options } from "../util";
-import { VContainer } from "vuetify/lib";
+import { isDescriptionHidden, computeLabel } from '@jsonforms/core';
+import { defineComponent, CompType } from '../vue';
+import { Styles } from '../styles';
+import { Options } from '../util';
+import { VContainer } from 'vuetify/lib';
 
 export default defineComponent({
-  name: "control-wrapper",
+  name: 'control-wrapper',
   components: {
     VContainer,
   },
   props: {
     id: {
-      required: true as true,
+      required: true as const,
       type: String,
     },
     description: {
-      required: false as false,
+      required: false as const,
       type: String,
       default: undefined,
     },
     errors: {
-      required: false as false,
+      required: false as const,
       type: String,
       default: undefined,
     },
     label: {
-      required: false as false,
+      required: false as const,
       type: String,
       default: undefined,
     },
     appliedOptions: {
-      required: false as false,
+      required: false as const,
       type: Object as CompType<Options, ObjectConstructor>,
       default: undefined,
     },
     visible: {
-      required: false as false,
+      required: false as const,
       type: Boolean,
       default: true,
     },
     required: {
-      required: false as false,
+      required: false as const,
       type: Boolean,
       default: false,
     },
     isFocused: {
-      required: false as false,
+      required: false as const,
       type: Boolean,
       default: false,
     },

@@ -46,20 +46,20 @@ import {
   uiTypeIs,
   schemaMatches,
   JsonSchema,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VHover, VCombobox } from "vuetify/lib";
-import { DisabledIconFocus } from "./directives";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VHover, VCombobox } from 'vuetify/lib';
+import { DisabledIconFocus } from './directives';
 
 const controlRenderer = defineComponent({
-  name: "anyof-string-or-enum-control-renderer",
+  name: 'anyof-string-or-enum-control-renderer',
   components: {
     ControlWrapper,
     VHover,
@@ -89,10 +89,10 @@ export default controlRenderer;
 
 const findEnumSchema = (schemas: JsonSchema[]) =>
   schemas.find(
-    (s) => s.enum !== undefined && (s.type === "string" || s.type === undefined)
+    (s) => s.enum !== undefined && (s.type === 'string' || s.type === undefined)
   );
 const findTextSchema = (schemas: JsonSchema[]) =>
-  schemas.find((s) => s.type === "string" && s.enum === undefined);
+  schemas.find((s) => s.type === 'string' && s.enum === undefined);
 
 const hasEnumAndText = (schemas: JsonSchema[]) => {
   // idea: map to type,enum and check that all types are string and at least one item is of type enum,
@@ -101,13 +101,13 @@ const hasEnumAndText = (schemas: JsonSchema[]) => {
   const remainingSchemas = schemas.filter(
     (s) => s !== enumSchema || s !== stringSchema
   );
-  const wrongType = remainingSchemas.find((s) => s.type && s.type !== "string");
+  const wrongType = remainingSchemas.find((s) => s.type && s.type !== 'string');
   return enumSchema && stringSchema && !wrongType;
 };
 const simpleAnyOf = and(
-  uiTypeIs("Control"),
+  uiTypeIs('Control'),
   schemaMatches(
-    (schema) => schema.hasOwnProperty("anyOf") && hasEnumAndText(schema.anyOf!)
+    (schema) => schema.hasOwnProperty('anyOf') && hasEnumAndText(schema.anyOf!)
   )
 );
 

@@ -164,40 +164,39 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from "../config/vue";
-import { UISchemaElement, JsonSchema } from "@jsonforms/core";
-import { ErrorObject } from "ajv";
-import { JsonForms, JsonFormsChangeEvent } from "../config/jsonforms";
+import { defineComponent, ref, Ref } from '@vue/composition-api';
+import { UISchemaElement, JsonSchema } from '@jsonforms/core';
+import { ErrorObject } from 'ajv';
+import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
 import {
   createAjv,
   extendedVuetifyRenderers,
   mergeStyles,
   defaultStyles,
-} from "../src";
-import ajvErrorsPlugin from "ajv-errors";
+} from '../src';
+import ajvErrorsPlugin from 'ajv-errors';
 
-import { examples } from "./components/examples";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import { examples } from './components/examples';
+import * as monaco from 'monaco-editor/esm/vs/editor/editor.api';
 
-import { Uri } from "monaco-editor/esm/vs/editor/editor.api";
 import {
   configureJsonSchemaValidation,
   configureUISchemaValidation,
   configureDataValidation,
   EditorApi,
-} from "./core/jsonSchemaValidation";
+} from './core/jsonSchemaValidation';
 
-import ThemeChanger from "./components/ThemeChanger.vue";
-import Settings from "./components/Settings.vue";
-import MonacoEditor from "./components/MonacoEditor.vue";
-import { jsonSchemaDraft7, uiSchema } from "./core/jsonschema";
+import ThemeChanger from './components/ThemeChanger.vue';
+import Settings from './components/Settings.vue';
+import MonacoEditor from './components/MonacoEditor.vue';
+import { jsonSchemaDraft7, uiSchema } from './core/jsonschema';
 
 const ajv = createAjv({ useDefaults: true });
 ajvErrorsPlugin(ajv);
 
 // mergeStyles combines all classes from both styles definitions into one
 const myStyles = mergeStyles(defaultStyles, {
-  control: { root: "my-control" },
+  control: { root: 'my-control' },
 });
 
 const renderers = Object.freeze(extendedVuetifyRenderers);
@@ -211,7 +210,7 @@ type JsonInput = {
 } | null;
 
 export default defineComponent({
-  name: "app",
+  name: 'app',
   components: {
     JsonForms,
     MonacoEditor,
@@ -225,7 +224,7 @@ export default defineComponent({
 
     return {
       readonly: false,
-      validationMode: "ValidateAndShow",
+      validationMode: 'ValidateAndShow',
       activeTab: 0,
       renderers: renderers,
       cells: renderers,
@@ -253,40 +252,44 @@ export default defineComponent({
       this.data.value = event.data;
       this.errors.value = event.errors;
 
-      console.log("JsonForm data change: " + JSON.stringify(this.data.value));
+      console.log('JsonForm data change: ' + JSON.stringify(this.data.value));
     },
     selectExample(index: number) {
       this.selectedExample.value = index;
     },
     onChangeEditSchema() {
-      console.log("on change schema");
+      console.log('on change schema');
     },
     onChangeEditUISchema() {
-      console.log("on change ui schema");
+      console.log('on change ui schema');
     },
     onChangeEditData() {
-      console.log("on change data");
+      console.log('on change data');
     },
     registerJsonSchemaValidation(editor: EditorApi) {
-      const modelUri = Uri.parse("json://core/specification/schema.json");
+      const modelUri = monaco.Uri.parse(
+        'json://core/specification/schema.json'
+      );
       configureJsonSchemaValidation(editor, modelUri);
     },
     registerUISchemaValidation(editor: EditorApi) {
-      const modelUri = Uri.parse("json://core/specification/uischema.json");
+      const modelUri = monaco.Uri.parse(
+        'json://core/specification/uischema.json'
+      );
       configureUISchemaValidation(editor, modelUri);
     },
     registerDataValidaton(editor: EditorApi) {
       const example = this.example;
       if (example && example.schema) {
-        if (!example.schema.hasOwnProperty("$schema")) {
-          example.schema["$schema"] = jsonSchemaDraft7.uri;
+        if (!Object.prototype.hasOwnProperty.call(example.schema, '$schema')) {
+          example.schema['$schema'] = jsonSchemaDraft7.uri;
         }
-        if (!example.schema.hasOwnProperty("$id")) {
-          (example.schema as any)["$id"] = example.schemaId;
+        if (!Object.prototype.hasOwnProperty.call(example.schema, '$id')) {
+          (example.schema as any)['$id'] = example.schemaId;
         }
 
         configureDataValidation(editor, {
-          uri: (example.schema as any)["$id"],
+          uri: (example.schema as any)['$id'],
           schema: example.schema,
         });
       }
@@ -297,7 +300,7 @@ export default defineComponent({
       const e = this.examples[this.selectedExample.value];
       if (e) {
         return {
-          schemaId: "example-" + this.selectedExample.value + "-schema.json",
+          schemaId: 'example-' + this.selectedExample.value + '-schema.json',
           title: e.title,
           schema: e.input.schema,
           uischema: e.input.uischema,
@@ -313,18 +316,21 @@ export default defineComponent({
         if (comp.example && comp.example.schema) {
           schema = comp.example.schema;
         }
-        if (schema && !schema.hasOwnProperty("$schema")) {
-          schema["$schema"] = jsonSchemaDraft7.uri;
+        if (
+          schema &&
+          !Object.prototype.hasOwnProperty.call(schema, '$schema')
+        ) {
+          schema['$schema'] = jsonSchemaDraft7.uri;
         }
-        if (schema && !schema.hasOwnProperty("$id")) {
-          schema["$id"] = comp.example.schemaId;
+        if (schema && !Object.prototype.hasOwnProperty.call(schema, '$id')) {
+          schema['$id'] = comp.example.schemaId;
         }
 
-        return schema ? JSON.stringify(schema, null, 2) : "";
+        return schema ? JSON.stringify(schema, null, 2) : '';
       },
 
       set(_: string) {
-        console.log("on change schema");
+        console.log('on change schema');
       },
     },
     monacoUISchema: {
@@ -333,14 +339,17 @@ export default defineComponent({
         if (comp.example && comp.example.uischema) {
           uischema = comp.example.uischema;
         }
-        if (uischema && !uischema.hasOwnProperty("$schema")) {
-          uischema["$schema"] = uiSchema.uri;
+        if (
+          uischema &&
+          !Object.prototype.hasOwnProperty.call(uischema, '$schema')
+        ) {
+          uischema['$schema'] = uiSchema.uri;
         }
-        return uischema ? JSON.stringify(uischema, null, 2) : "";
+        return uischema ? JSON.stringify(uischema, null, 2) : '';
       },
 
       set(_: string) {
-        console.log("on change ui schema");
+        console.log('on change ui schema');
       },
     },
     monacoData: {
@@ -350,20 +359,20 @@ export default defineComponent({
         if (comp.data.value) {
           data = comp.data.value;
         }
-        if (data && !data.hasOwnProperty("$schema")) {
+        if (data && !Object.prototype.hasOwnProperty.call(data, '$schema')) {
           if (
             comp.example.schema &&
-            comp.example.schema.hasOwnProperty("$id")
+            Object.prototype.hasOwnProperty.call(comp.example.schema, '$id')
           ) {
-            data["$schema"] = comp.example.schema.$id;
+            data['$schema'] = comp.example.schema.$id;
           }
         }
 
-        return data ? JSON.stringify(data, null, 2) : "";
+        return data ? JSON.stringify(data, null, 2) : '';
       },
 
       set(_: string) {
-        console.log("on change data");
+        console.log('on change data');
       },
     },
   },

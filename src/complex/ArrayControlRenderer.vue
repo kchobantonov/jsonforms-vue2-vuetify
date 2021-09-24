@@ -182,17 +182,17 @@ import {
   ControlElement,
   JsonSchema,
   Resolve,
-} from "@jsonforms/core";
-import startCase from "lodash/startCase";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import startCase from 'lodash/startCase';
+import { defineComponent } from '../vue';
 import {
   DispatchCell,
   DispatchRenderer,
   rendererProps,
   useJsonFormsArrayControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyArrayControl } from "../util";
+} from '@jsonforms/vue2';
+import { useVuetifyArrayControl } from '../util';
 import {
   VCard,
   VCardTitle,
@@ -208,11 +208,11 @@ import {
   VAvatar,
   VSpacer,
   VSimpleTable,
-} from "vuetify/lib";
-import { ValidationIcon, ValidationBadge } from "../controls/components/index";
+} from 'vuetify/lib';
+import { ValidationIcon, ValidationBadge } from '../controls/components/index';
 
 const controlRenderer = defineComponent({
-  name: "array-control-renderer",
+  name: 'array-control-renderer',
   components: {
     DispatchCell,
     DispatchRenderer,
@@ -275,15 +275,15 @@ const controlRenderer = defineComponent({
     },
     getValidColumnProps(scopedSchema: JsonSchema) {
       if (
-        scopedSchema.type === "object" &&
-        typeof scopedSchema.properties === "object"
+        scopedSchema.type === 'object' &&
+        typeof scopedSchema.properties === 'object'
       ) {
         return Object.keys(scopedSchema.properties).filter(
-          (prop) => scopedSchema.properties![prop].type !== "array"
+          (prop) => scopedSchema.properties![prop].type !== 'array'
         );
       }
       // primitives
-      return [""];
+      return [''];
     },
     title(prop: string) {
       return this.control.schema.properties?.[prop]?.title ?? startCase(prop);
@@ -291,10 +291,10 @@ const controlRenderer = defineComponent({
     resolveUiSchema(propName: string) {
       return this.control.schema.properties
         ? this.controlWithoutLabel(`#/properties/${propName}`)
-        : this.controlWithoutLabel("#");
+        : this.controlWithoutLabel('#');
     },
     controlWithoutLabel(scope: string): ControlElement {
-      return { type: "Control", scope: scope, label: false };
+      return { type: 'Control', scope: scope, label: false };
     },
   },
 });

@@ -82,15 +82,15 @@ import {
   isVisible,
   JsonFormsSubStates,
   categorizationHasCategory,
-} from "@jsonforms/core";
-import { defineComponent, inject, ref } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent, inject, ref } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyLayout } from "../util";
+} from '@jsonforms/vue2';
+import { useVuetifyLayout } from '../util';
 import {
   VStepper,
   VStepperHeader,
@@ -101,10 +101,10 @@ import {
   VCard,
   VCardActions,
   VBtn,
-} from "vuetify/lib";
+} from 'vuetify/lib';
 
 const layoutRenderer = defineComponent({
-  name: "categorization-stepper-renderer",
+  name: 'categorization-stepper-renderer',
   components: {
     DispatchRenderer,
     VStepper,
@@ -127,7 +127,7 @@ const layoutRenderer = defineComponent({
   },
   computed: {
     visibleCategories(): (Category | Categorization)[] {
-      const jsonforms = inject<JsonFormsSubStates>("jsonforms");
+      const jsonforms = inject<JsonFormsSubStates>('jsonforms');
 
       if (!jsonforms) {
         throw new Error(
@@ -151,9 +151,9 @@ const layoutRenderer = defineComponent({
 export default layoutRenderer;
 
 export const categorizationStepperTester: Tester = and(
-  uiTypeIs("Categorization"),
+  uiTypeIs('Categorization'),
   categorizationHasCategory,
-  optionIs("variant", "stepper")
+  optionIs('variant', 'stepper')
 );
 
 export const entry: JsonFormsRendererRegistryEntry = {

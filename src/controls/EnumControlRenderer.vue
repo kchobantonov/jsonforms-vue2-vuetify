@@ -37,20 +37,20 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   isEnumControl,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsEnumControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VSelect, VHover } from "vuetify/lib";
-import { DisabledIconFocus } from "./directives";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VSelect, VHover } from 'vuetify/lib';
+import { DisabledIconFocus } from './directives';
 
 const controlRenderer = defineComponent({
-  name: "enum-control-renderer",
+  name: 'enum-control-renderer',
   components: {
     ControlWrapper,
     VSelect,

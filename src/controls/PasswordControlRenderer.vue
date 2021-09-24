@@ -43,19 +43,19 @@ import {
   isStringControl,
   and,
   formatIs,
-} from "@jsonforms/core";
-import { defineComponent, ref } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent, ref } from '../vue';
 import {
   rendererProps,
   useJsonFormsControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VTextField } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VTextField } from 'vuetify/lib';
 
 const controlRenderer = defineComponent({
-  name: "password-control-renderer",
+  name: 'password-control-renderer',
   components: {
     ControlWrapper,
     VTextField,
@@ -80,6 +80,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(2, and(isStringControl, formatIs("password"))),
+  tester: rankWith(2, and(isStringControl, formatIs('password'))),
 };
 </script>

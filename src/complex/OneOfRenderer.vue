@@ -68,13 +68,13 @@ import {
   getSchema,
   getData,
   ControlProps,
-} from "@jsonforms/core";
+} from '@jsonforms/core';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useJsonFormsOneOfControl,
-} from "../../config/jsonforms";
+} from '@jsonforms/vue2';
 import {
   VDialog,
   VCard,
@@ -87,12 +87,12 @@ import {
   VTab,
   VTabsItems,
   VTabItem,
-} from "vuetify/lib";
-import { computed, defineComponent, inject, ref } from "../../config/vue";
-import { useVuetifyControl } from "../util";
-import { CombinatorProperties } from "./components";
-import isEmpty from "lodash/isEmpty";
-import Vue from "vue";
+} from 'vuetify/lib';
+import { computed, defineComponent, inject, ref } from '../vue';
+import { useVuetifyControl } from '../util';
+import { CombinatorProperties } from './components';
+import isEmpty from 'lodash/isEmpty';
+import Vue from 'vue';
 
 // TODO: currently mapStateToOneOfProps in core does not provide control enabled property
 // currently used in handleTabChange when switching to the next tab and data needs to be cleared but no data changed should happend
@@ -119,7 +119,7 @@ const isControlEnabled = (
 };
 
 const controlRenderer = defineComponent({
-  name: "oneof-renderer",
+  name: 'oneof-renderer',
   components: {
     DispatchRenderer,
     CombinatorProperties,
@@ -145,12 +145,12 @@ const controlRenderer = defineComponent({
     const _schema = resolveSubSchemas(
       control.schema,
       control.rootSchema,
-      "oneOf"
+      'oneOf'
     );
     const oneOfRenderInfos = createCombinatorRenderInfos(
       _schema.oneOf!,
       control.rootSchema,
-      "oneOf",
+      'oneOf',
       control.uischema,
       control.path,
       control.uischemas
@@ -162,7 +162,7 @@ const controlRenderer = defineComponent({
     const dialog = ref(false);
 
     // TODO: once the enabled property is mapped by JsonForms core we can remove this jsonforms and controlEnabled variables
-    const jsonforms = inject<JsonFormsSubStates>("jsonforms");
+    const jsonforms = inject<JsonFormsSubStates>('jsonforms');
     if (!jsonforms) {
       throw new Error(
         "'jsonforms' couldn't be injected. Are you within JSON Forms?"

@@ -72,23 +72,23 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   isStringControl,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VHover, VTextField, VCombobox } from "vuetify/lib";
-import { DisabledIconFocus } from "./directives";
-import isArray from "lodash/isArray";
-import every from "lodash/every";
-import isString from "lodash/isString";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VHover, VTextField, VCombobox } from 'vuetify/lib';
+import { DisabledIconFocus } from './directives';
+import isArray from 'lodash/isArray';
+import every from 'lodash/every';
+import isString from 'lodash/isString';
 
 const controlRenderer = defineComponent({
-  name: "string-control-renderer",
+  name: 'string-control-renderer',
   components: {
     ControlWrapper,
     VHover,
@@ -131,4 +131,3 @@ export const entry: JsonFormsRendererRegistryEntry = {
   tester: rankWith(1, isStringControl),
 };
 </script>
-

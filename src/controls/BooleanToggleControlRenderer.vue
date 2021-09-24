@@ -16,9 +16,7 @@
       :persistent-hint="persistentHint()"
       :required="control.required"
       :error-messages="control.errors"
-
       v-model="control.data"
-      
       @change="onChange"
       @focus="isFocused = true"
       @blur="isFocused = false"
@@ -33,10 +31,14 @@ import {
   rankWith,
   isBooleanControl,
   optionIs,
-  and
+  and,
 } from '@jsonforms/core';
-import { defineComponent } from '../../config/vue';
-import { rendererProps, useJsonFormsControl, RendererProps } from '../../config/jsonforms';
+import { defineComponent } from '../vue';
+import {
+  rendererProps,
+  useJsonFormsControl,
+  RendererProps,
+} from '@jsonforms/vue2';
 import { default as ControlWrapper } from './ControlWrapper.vue';
 import { useVuetifyControl } from '../util';
 import { VSwitch } from 'vuetify/lib';
@@ -45,20 +47,20 @@ const controlRenderer = defineComponent({
   name: 'boolean-toggle-control-renderer',
   components: {
     ControlWrapper,
-    VSwitch
+    VSwitch,
   },
   props: {
-    ...rendererProps<ControlElement>()
+    ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
     return useVuetifyControl(useJsonFormsControl(props));
-  }
+  },
 });
 
 export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(3, and(isBooleanControl, optionIs('toggle', true)))
+  tester: rankWith(3, and(isBooleanControl, optionIs('toggle', true))),
 };
 </script>

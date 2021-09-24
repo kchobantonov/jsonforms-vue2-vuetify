@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib'
-import { VuetifyPreset } from 'vuetify/types/services/presets'
+import Vuetify from 'vuetify/lib';
+import { VuetifyPreset } from 'vuetify/types/services/presets';
 import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
 
@@ -42,11 +42,10 @@ export const preset: Partial<VuetifyPreset> = {
       },
     },
   },
-}
-
+};
 
 export default new Vuetify({
   preset,
   rtl: false,
   theme: { dark: false },
-})
+});

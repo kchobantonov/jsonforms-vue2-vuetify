@@ -186,15 +186,15 @@ import {
   createDefaultValue,
   Resolve,
   JsonSchema,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsArrayControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyArrayControl } from "../util";
+} from '@jsonforms/vue2';
+import { useVuetifyArrayControl } from '../util';
 import {
   VCard,
   VCardTitle,
@@ -213,12 +213,12 @@ import {
   VExpansionPanel,
   VExpansionPanelHeader,
   VExpansionPanelContent,
-} from "vuetify/lib";
-import { ValidationIcon, ValidationBadge } from "../controls/components/index";
-import { ErrorObject } from "ajv";
+} from 'vuetify/lib';
+import { ValidationIcon, ValidationBadge } from '../controls/components/index';
+import { ErrorObject } from 'ajv';
 
 const controlRenderer = defineComponent({
-  name: "array-layout-renderer",
+  name: 'array-layout-renderer',
   components: {
     DispatchRenderer,
     VCard,

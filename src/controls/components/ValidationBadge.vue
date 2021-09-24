@@ -11,7 +11,7 @@
           :overlap="overlap"
         >
           <template v-slot:badge>
-            {{errors.length}}
+            {{ errors.length }}
           </template>
           <div v-on="onTooltip"><slot></slot></div>
         </v-badge>
@@ -30,19 +30,18 @@
   </div>
 </template>
 
-
 <script lang="ts">
-import { defineComponent, CompType } from "../../../config/vue";
-import { VBadge, VTooltip } from "vuetify/lib";
-import { ErrorObject } from "ajv";
-import findIndex from "lodash/findIndex";
+import { defineComponent, CompType } from '../../vue';
+import { VBadge, VTooltip } from 'vuetify/lib';
+import { ErrorObject } from 'ajv';
+import findIndex from 'lodash/findIndex';
 import {
   createControlElement,
   createLabelDescriptionFrom,
-} from "@jsonforms/core";
+} from '@jsonforms/core';
 
 export default defineComponent({
-  name: "validation-badge",
+  name: 'validation-badge',
   components: {
     VBadge,
     VTooltip,
@@ -58,7 +57,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: "error",
+      default: 'error',
     },
     inline: {
       type: Boolean,
@@ -113,7 +112,7 @@ export default defineComponent({
         }
       }
 
-      return error.map((v) => v.labels.join(",") + ": " + v.message);
+      return error.map((v) => v.labels.join(',') + ': ' + v.message);
     },
   },
 });

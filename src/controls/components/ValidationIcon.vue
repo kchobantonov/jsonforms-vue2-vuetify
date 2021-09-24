@@ -4,15 +4,14 @@
   </validation-badge>
 </template>
 
-
 <script lang="ts">
-import { defineComponent, CompType } from "../../../config/vue";
-import { ErrorObject } from "ajv";
+import { defineComponent, CompType } from '../../vue';
+import { ErrorObject } from 'ajv';
 import { default as ValidationBadge } from './ValidationBadge.vue';
-import { VIcon } from "vuetify/lib";
+import { VIcon } from 'vuetify/lib';
 
 export default defineComponent({
-  name: "validation-icon",
+  name: 'validation-icon',
   components: {
     ValidationBadge,
     VIcon,

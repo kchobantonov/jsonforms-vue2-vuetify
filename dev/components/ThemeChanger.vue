@@ -82,89 +82,89 @@
 </template>
 
 <script lang="ts">
-import { VuetifyThemeVariant } from "vuetify/types/services/theme";
-import merge from "lodash/merge";
-import cloneDeep from "lodash/cloneDeep";
+import { VuetifyThemeVariant } from 'vuetify/types/services/theme';
+import merge from 'lodash/merge';
+import cloneDeep from 'lodash/cloneDeep';
 
 const defaultTheme = {
-  name: "Default",
+  name: 'Default',
   light: {
-    primary: "#1976D2",
-    secondary: "#424242",
-    accent: "#82B1FF",
-    error: "#FF5252",
-    info: "#2196F3",
-    success: "#4CAF50",
-    warning: "#FB8C00",
+    primary: '#1976D2',
+    secondary: '#424242',
+    accent: '#82B1FF',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FB8C00',
   },
   dark: {
-    primary: "#2196F3",
-    secondary: "#424242",
-    accent: "#FF4081",
-    error: "#FF5252",
-    info: "#2196F3",
-    success: "#4CAF50",
-    warning: "#FB8C00",
+    primary: '#2196F3',
+    secondary: '#424242',
+    accent: '#FF4081',
+    error: '#FF5252',
+    info: '#2196F3',
+    success: '#4CAF50',
+    warning: '#FB8C00',
   },
 };
 
 export default {
-  name: "ThemeChanger",
+  name: 'ThemeChanger',
   data: () => ({
     menu: false,
     themes: [
       defaultTheme,
       {
         ...merge(cloneDeep(defaultTheme), {
-          name: "Basil",
+          name: 'Basil',
           light: {
-            primary: "#356859",
-            secondary: "#FD5523",
-            accent: "#37966F",
-            info: "#356859",
+            primary: '#356859',
+            secondary: '#FD5523',
+            accent: '#37966F',
+            info: '#356859',
           },
         }),
       },
       {
         ...merge(cloneDeep(defaultTheme), {
-          name: "Crane",
+          name: 'Crane',
           light: {
-            primary: "#5D1049",
-            secondary: "#E30425",
-            accent: "#4E0D3A",
-            info: "#5D1049",
+            primary: '#5D1049',
+            secondary: '#E30425',
+            accent: '#4E0D3A',
+            info: '#5D1049',
           },
         }),
       },
       {
         ...merge(cloneDeep(defaultTheme), {
-          name: "Fortnightly",
+          name: 'Fortnightly',
           light: {
-            primary: "#6B38FB",
-            secondary: "#6B38FB",
-            info: "#6B38FB",
+            primary: '#6B38FB',
+            secondary: '#6B38FB',
+            info: '#6B38FB',
           },
         }),
       },
       {
         ...merge(cloneDeep(defaultTheme), {
-          name: "Owl",
+          name: 'Owl',
           light: {
-            primary: "#FFDE03",
-            secondary: "#0336FF",
-            accent: "#FF0266",
-            info: "#FFDE03",
+            primary: '#FFDE03',
+            secondary: '#0336FF',
+            accent: '#FF0266',
+            info: '#FFDE03',
           },
         }),
       },
       {
         ...merge(cloneDeep(defaultTheme), {
-          name: "Shrine",
+          name: 'Shrine',
           light: {
-            primary: "#FEDBD0",
-            secondary: "#FEEAE6",
-            accent: "#442C2E",
-            info: "#FEDBD0",
+            primary: '#FEDBD0',
+            secondary: '#FEEAE6',
+            accent: '#442C2E',
+            info: '#FEDBD0',
           },
         }),
       },

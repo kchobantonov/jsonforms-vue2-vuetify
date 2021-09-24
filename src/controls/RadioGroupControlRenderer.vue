@@ -40,19 +40,19 @@ import {
   isEnumControl,
   optionIs,
   and,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsEnumControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VRadioGroup, VRadio, VLabel } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VRadioGroup, VRadio, VLabel } from 'vuetify/lib';
 
 const controlRenderer = defineComponent({
-  name: "radio-group-control-renderer",
+  name: 'radio-group-control-renderer',
   components: {
     ControlWrapper,
     VRadioGroup,
@@ -71,6 +71,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(20, and(isEnumControl, optionIs("format", "radio"))),
+  tester: rankWith(20, and(isEnumControl, optionIs('format', 'radio'))),
 };
 </script>

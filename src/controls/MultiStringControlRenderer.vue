@@ -45,20 +45,20 @@ import {
   isStringControl,
   isMultiLineControl,
   and,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl } from "../util";
-import { VHover, VTextarea } from "vuetify/lib";
-import { DisabledIconFocus } from "./directives";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl } from '../util';
+import { VHover, VTextarea } from 'vuetify/lib';
+import { DisabledIconFocus } from './directives';
 
 const controlRenderer = defineComponent({
-  name: "multi-string-control-renderer",
+  name: 'multi-string-control-renderer',
   components: {
     ControlWrapper,
     VHover,

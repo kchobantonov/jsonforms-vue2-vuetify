@@ -5,10 +5,8 @@
     :isFocused="isFocused"
     :appliedOptions="appliedOptions"
   >
-
-      <v-text-field
+    <v-text-field
       type="date"
-
       :id="control.id + '-input'"
       :class="styles.control.input"
       :disabled="!control.enabled"
@@ -19,14 +17,11 @@
       :persistent-hint="persistentHint()"
       :required="control.required"
       :error-messages="control.errors"
-
       v-model="control.data"
-
       @change="onChange"
       @focus="isFocused = true"
       @blur="isFocused = false"
     />
-
   </control-wrapper>
 </template>
 
@@ -35,10 +30,14 @@ import {
   ControlElement,
   JsonFormsRendererRegistryEntry,
   rankWith,
-  isDateControl
+  isDateControl,
 } from '@jsonforms/core';
-import { defineComponent } from '../../config/vue';
-import { rendererProps, useJsonFormsControl, RendererProps } from '../../config/jsonforms';
+import { defineComponent } from '../vue';
+import {
+  rendererProps,
+  useJsonFormsControl,
+  RendererProps,
+} from '@jsonforms/vue2';
 import { default as ControlWrapper } from './ControlWrapper.vue';
 import { useVuetifyControl } from '../util';
 import { VTextField } from 'vuetify/lib';
@@ -47,10 +46,10 @@ const controlRenderer = defineComponent({
   name: 'date-control-renderer',
   components: {
     ControlWrapper,
-    VTextField
+    VTextField,
   },
   props: {
-    ...rendererProps<ControlElement>()
+    ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
     return useVuetifyControl(useJsonFormsControl(props));
@@ -61,6 +60,6 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(2, isDateControl)
+  tester: rankWith(2, isDateControl),
 };
 </script>

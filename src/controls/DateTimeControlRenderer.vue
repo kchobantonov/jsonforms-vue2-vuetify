@@ -30,19 +30,19 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   isDateTimeControl,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   rendererProps,
   useJsonFormsControl,
   RendererProps,
-} from "../../config/jsonforms";
-import { default as ControlWrapper } from "./ControlWrapper.vue";
-import { useVuetifyControl, parseDateTime } from "../util";
-import { VTextField } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { default as ControlWrapper } from './ControlWrapper.vue';
+import { useVuetifyControl, parseDateTime } from '../util';
+import { VTextField } from 'vuetify/lib';
 
 const controlRenderer = defineComponent({
-  name: "datetime-control-renderer",
+  name: 'datetime-control-renderer',
   components: {
     ControlWrapper,
     VTextField,
@@ -56,21 +56,21 @@ const controlRenderer = defineComponent({
   computed: {
     dataTime: {
       get(): string | null | undefined {
-        const datetimeLocalFormat = "YYYY-MM-DDTHH:mm:ss.SSS";
+        const datetimeLocalFormat = 'YYYY-MM-DDTHH:mm:ss.SSS';
         const saveFormat = this.appliedOptions.dateTimeSaveFormat ?? undefined;
-        const value = this.control.data as (string | undefined | null);
+        const value = this.control.data as string | undefined | null;
 
         const dateTime = parseDateTime(value, saveFormat);
         return dateTime ? dateTime.local().format(datetimeLocalFormat) : value;
       },
       set(value: string) {
         const datetimeLocalFormats = [
-          "YYYY-MM-DDTHH:mm:ss.SSS",
-          "YYYY-MM-DDTHH:mm:ss",
-          "YYYY-MM-DDTHH:mm",
+          'YYYY-MM-DDTHH:mm:ss.SSS',
+          'YYYY-MM-DDTHH:mm:ss',
+          'YYYY-MM-DDTHH:mm',
         ];
         const saveFormat =
-          this.appliedOptions.dateTimeSaveFormat ?? "YYYY-MM-DDTHH:mm:ssZ";
+          this.appliedOptions.dateTimeSaveFormat ?? 'YYYY-MM-DDTHH:mm:ssZ';
 
         const dateTime = parseDateTime(value, datetimeLocalFormats);
         const result = dateTime ? dateTime.format(saveFormat) : value;

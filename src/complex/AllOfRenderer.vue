@@ -10,7 +10,10 @@
         :cells="control.cells"
       />
     </template>
-    <template v-else-if="allOfRenderInfos" v-for="(allOfRenderInfo, allOfIndex) in allOfRenderInfos">
+    <template
+      v-else-if="allOfRenderInfos"
+      v-for="(allOfRenderInfo, allOfIndex) in allOfRenderInfos"
+    >
       <dispatch-renderer
         :key="allOfIndex"
         :schema="allOfRenderInfo.schema"
@@ -34,18 +37,18 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   resolveSubSchemas,
-} from "@jsonforms/core";
+} from '@jsonforms/core';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useJsonFormsAllOfControl,
-} from "../../config/jsonforms";
-import { defineComponent } from "../../config/vue";
-import { useVuetifyControl } from "../util";
+} from '@jsonforms/vue2';
+import { defineComponent } from '../vue';
+import { useVuetifyControl } from '../util';
 
 const controlRenderer = defineComponent({
-  name: "allof-renderer",
+  name: 'allof-renderer',
   components: {
     DispatchRenderer,
   },
@@ -59,7 +62,7 @@ const controlRenderer = defineComponent({
     const _schema = resolveSubSchemas(
       control.schema,
       control.rootSchema,
-      "allOf"
+      'allOf'
     );
     const delegateUISchema = findMatchingUISchema(control.uischemas)(
       _schema,
@@ -67,7 +70,8 @@ const controlRenderer = defineComponent({
       control.path
     );
 
-    let allOfRenderInfos: CombinatorSubSchemaRenderInfo[] | undefined = undefined;
+    let allOfRenderInfos: CombinatorSubSchemaRenderInfo[] | undefined =
+      undefined;
 
     if (delegateUISchema) {
       return {
@@ -81,7 +85,7 @@ const controlRenderer = defineComponent({
     allOfRenderInfos = createCombinatorRenderInfos(
       _schema.allOf!,
       control.rootSchema,
-      "allOf",
+      'allOf',
       control.uischema,
       control.path,
       control.uischemas

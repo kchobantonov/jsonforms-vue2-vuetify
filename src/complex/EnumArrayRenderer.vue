@@ -36,17 +36,17 @@ import {
   update,
   Dispatch,
   CoreActions,
-} from "@jsonforms/core";
-import { VCheckbox, VContainer, VRow, VCol } from "vuetify/lib";
+} from '@jsonforms/core';
+import { VCheckbox, VContainer, VRow, VCol } from 'vuetify/lib';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useControl,
   ControlProps,
-} from "../../config/jsonforms";
-import { defineComponent, inject } from "../../config/vue";
-import { useVuetifyMultiEnumControl } from "../util";
+} from '@jsonforms/vue2';
+import { defineComponent, inject } from '../vue';
+import { useVuetifyMultiEnumControl } from '../util';
 
 //TODO: move into JsonForm Vue project under src/components/jsonFormsCompositions.ts
 const useJsonFormsMultiEnumControl = (props: ControlProps) => {
@@ -58,7 +58,7 @@ const useJsonFormsMultiEnumControl = (props: ControlProps) => {
 };
 
 const controlRenderer = defineComponent({
-  name: "enum-array-renderer",
+  name: 'enum-array-renderer',
   components: {
     DispatchRenderer,
     VCheckbox,
@@ -70,7 +70,7 @@ const controlRenderer = defineComponent({
     ...rendererProps<ControlElement>(),
   },
   setup(props: RendererProps<ControlElement>) {
-    const dispatch = inject<Dispatch<CoreActions>>("dispatch");
+    const dispatch = inject<Dispatch<CoreActions>>('dispatch');
 
     if (!dispatch) {
       throw new Error(
@@ -101,22 +101,22 @@ const hasOneOfItems = (schema: JsonSchema): boolean =>
   });
 
 const hasEnumItems = (schema: JsonSchema): boolean =>
-  schema.type === "string" && schema.enum !== undefined;
+  schema.type === 'string' && schema.enum !== undefined;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
   tester: rankWith(
     5,
     and(
-      uiTypeIs("Control"),
+      uiTypeIs('Control'),
       and(
         schemaMatches(
           (schema) =>
-            hasType(schema, "array") &&
+            hasType(schema, 'array') &&
             !Array.isArray(schema.items) &&
             schema.uniqueItems === true
         ),
-        schemaSubPathMatches("items", (schema) => {
+        schemaSubPathMatches('items', (schema) => {
           return hasOneOfItems(schema) || hasEnumItems(schema);
         })
       )

@@ -1,9 +1,9 @@
 import Vue, { VNode } from 'vue';
 import App from './App.vue';
-import VueCompositionAPI from '@vue/composition-api'
-import vuetify from './plugins/vuetify' // path to vuetify export
+import VueCompositionAPI from '@vue/composition-api';
+import vuetify from './plugins/vuetify'; // path to vuetify export
 
-Vue.use(VueCompositionAPI)
+Vue.use(VueCompositionAPI);
 
 Vue.config.productionTip = false;
 

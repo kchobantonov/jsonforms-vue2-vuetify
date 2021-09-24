@@ -201,15 +201,15 @@ import {
   UISchemaElement,
   Resolve,
   JsonSchema,
-} from "@jsonforms/core";
-import { defineComponent, ref } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent, ref } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useJsonFormsArrayControl,
-} from "../../config/jsonforms";
-import { useVuetifyArrayControl } from "../util";
+} from '@jsonforms/vue2';
+import { useVuetifyArrayControl } from '../util';
 import {
   VList,
   VListItemGroup,
@@ -233,12 +233,12 @@ import {
   VExpansionPanelHeader,
   VExpansionPanelContent,
   VVirtualScroll,
-} from "vuetify/lib";
-import { ValidationIcon, ValidationBadge } from "../controls/components/index";
-import { ErrorObject } from "ajv";
+} from 'vuetify/lib';
+import { ValidationIcon, ValidationBadge } from '../controls/components/index';
+import { ErrorObject } from 'ajv';
 
 const controlRenderer = defineComponent({
-  name: "list-with-detail-renderer",
+  name: 'list-with-detail-renderer',
   components: {
     DispatchRenderer,
     VList,
@@ -262,9 +262,9 @@ const controlRenderer = defineComponent({
     VExpansionPanelHeader,
     VExpansionPanelContent,
     VContainer,
+    VVirtualScroll,
     ValidationIcon,
     ValidationBadge,
-    VVirtualScroll,
   },
   props: {
     ...rendererProps<ControlElement>(),
@@ -333,7 +333,7 @@ export default controlRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: controlRenderer,
-  tester: rankWith(4, and(uiTypeIs("ListWithDetail"), isObjectArray)),
+  tester: rankWith(4, and(uiTypeIs('ListWithDetail'), isObjectArray)),
 };
 </script>
 

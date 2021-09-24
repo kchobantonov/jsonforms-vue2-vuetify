@@ -16,4 +16,4 @@ export const vuetifyRenderers = [
 export const extendedVuetifyRenderers = [
   ...extendedRenderers,
   ...vuetifyRenderers,
-]
+];

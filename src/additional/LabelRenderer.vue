@@ -11,19 +11,19 @@ import {
   rankWith,
   uiTypeIs,
   LabelElement,
-} from "@jsonforms/core";
-import { defineComponent } from "../../config/vue";
+} from '@jsonforms/core';
+import { defineComponent } from '../vue';
 import {
   DispatchRenderer,
   rendererProps,
   useJsonFormsLayout,
   RendererProps,
-} from "../../config/jsonforms";
-import { useVuetifyLayout } from "../util";
-import { VLabel } from "vuetify/lib";
+} from '@jsonforms/vue2';
+import { useVuetifyLayout } from '../util';
+import { VLabel } from 'vuetify/lib';
 
 const labelRenderer = defineComponent({
-  name: "label-renderer",
+  name: 'label-renderer',
   components: {
     DispatchRenderer,
     VLabel,
@@ -46,6 +46,6 @@ export default labelRenderer;
 
 export const entry: JsonFormsRendererRegistryEntry = {
   renderer: labelRenderer,
-  tester: rankWith(1, uiTypeIs("Label")),
+  tester: rankWith(1, uiTypeIs('Label')),
 };
 </script>

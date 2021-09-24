@@ -7,4 +7,4 @@ import { entry as listWithDetailRendererEntry } from './ListWithDetailRenderer.v
 export const additionalRenderers = [
   labelRendererEntry,
   listWithDetailRendererEntry,
-]
+];

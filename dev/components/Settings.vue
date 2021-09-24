@@ -194,7 +194,7 @@
 
 <script lang="ts">
 export default {
-  name: "Settings",
+  name: 'Settings',
   props: {
     validationMode: { type: String, required: true },
     showUnfocusedDescription: { type: Boolean, required: true },
@@ -207,9 +207,9 @@ export default {
       settings: false,
       validationModeData: this.validationMode,
       validationModes: [
-        { text: "Validate And Show", value: "ValidateAndShow" },
-        { text: "Validate And Hide", value: "ValidateAndHide" },
-        { text: "No Validation", value: "NoValidation" },
+        { text: 'Validate And Show', value: 'ValidateAndShow' },
+        { text: 'Validate And Hide', value: 'ValidateAndHide' },
+        { text: 'No Validation', value: 'NoValidation' },
       ],
       hideRequiredAsteriskData: this.hideRequiredAsterisk,
       showUnfocusedDescriptionData: this.showUnfocusedDescription,

@@ -42,20 +42,20 @@ import {
   JsonFormsRendererRegistryEntry,
   rankWith,
   resolveSubSchemas,
-} from "@jsonforms/core";
+} from '@jsonforms/core';
 import {
   DispatchRenderer,
   rendererProps,
   RendererProps,
   useJsonFormsAnyOfControl,
-} from "../../config/jsonforms";
-import { VTabs, VTab, VTabsItems, VTabItem } from "vuetify/lib";
-import { defineComponent, ref } from "../../config/vue";
-import { useVuetifyControl } from "../util";
-import { CombinatorProperties } from "./components";
+} from '@jsonforms/vue2';
+import { VTabs, VTab, VTabsItems, VTabItem } from 'vuetify/lib';
+import { defineComponent, ref } from '../vue';
+import { useVuetifyControl } from '../util';
+import { CombinatorProperties } from './components';
 
 const controlRenderer = defineComponent({
-  name: "anyof-renderer",
+  name: 'anyof-renderer',
   components: {
     DispatchRenderer,
     CombinatorProperties,
@@ -74,12 +74,12 @@ const controlRenderer = defineComponent({
     const _schema = resolveSubSchemas(
       control.schema,
       control.rootSchema,
-      "anyOf"
+      'anyOf'
     );
     const anyOfRenderInfos = createCombinatorRenderInfos(
       _schema.anyOf!,
       control.rootSchema,
-      "anyOf",
+      'anyOf',
       control.uischema,
       control.path,
       control.uischemas
