@@ -56,7 +56,7 @@ import { useVuetifyControl } from '../util';
 import { CombinatorProperties } from './components';
 
 const controlRenderer = defineComponent({
-  name: 'anyof-renderer',
+  name: 'any-of-renderer',
   components: {
     DispatchRenderer,
     CombinatorProperties,

@@ -120,7 +120,7 @@ const isControlEnabled = (
 };
 
 const controlRenderer = defineComponent({
-  name: 'oneof-renderer',
+  name: 'one-of-renderer',
   components: {
     DispatchRenderer,
     CombinatorProperties,

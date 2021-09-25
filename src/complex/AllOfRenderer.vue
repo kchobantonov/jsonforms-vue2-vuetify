@@ -48,7 +48,7 @@ import { defineComponent } from '../vue';
 import { useVuetifyControl } from '../util';
 
 const controlRenderer = defineComponent({
-  name: 'allof-renderer',
+  name: 'all-of-renderer',
   components: {
     DispatchRenderer,
   },
