@@ -1,5 +1,6 @@
 import { input as allOf } from './allOf';
 import { input as anyOf } from './anyOf';
+import { input as anyOfOneOfAllOfResolve } from './anyOf-oneOf-allOf-resolve';
 import { input as anyOfSimple } from './anyOf-simple';
 import { input as array } from './array';
 import { input as arrayRestrict } from './array-restrict';
@@ -169,6 +170,10 @@ export const examples = [
   {
     title: 'Combinators allOf',
     input: allOf,
+  },
+  {
+    title: 'AnyOf OneOf AllOf Resolve',
+    input: anyOfOneOfAllOfResolve,
   },
   {
     title: 'List With Details',

@@ -1,17 +1,19 @@
-const MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
+const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = {
   chainWebpack: (config) => {
-    // remove typecheck
-    config.plugins.delete("fork-ts-checker");
+    config.devtool('source-map');
 
-    config.plugin("monaco-editor").use(MonacoWebpackPlugin, [
+    // remove typecheck
+    config.plugins.delete('fork-ts-checker');
+
+    config.plugin('monaco-editor').use(MonacoWebpackPlugin, [
       {
         // Languages are loaded on demand at runtime
-        languages: ["json"],
+        languages: ['json'],
       },
     ]);
-   
+
     return config;
   },
   devServer: {
@@ -20,5 +22,5 @@ module.exports = {
       poll: true,
     },
   },
-  transpileDependencies: ["vuetify"],
+  transpileDependencies: ['vuetify'],
 };

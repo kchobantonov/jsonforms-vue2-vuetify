@@ -1,0 +1,33 @@
+{
+  "$defs": {
+    "Base": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "Child": {
+      "type": "object",
+      "allOf": [
+        {
+          "$ref": "#/$defs/Base"
+        },
+        {
+          "properties": {
+            "geometry": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "element": {
+      "$ref": "#/$defs/Child"
+    }
+  }
+}
