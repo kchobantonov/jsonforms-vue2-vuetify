@@ -40,7 +40,7 @@
     <v-card-text>
       <v-container justify-space-around align-content-center>
         <v-row justify="center">
-          <v-expansion-panels accordion hover>
+          <v-expansion-panels accordion focusable>
             <v-expansion-panel
               v-for="(element, index) in control.data"
               :key="`${control.path}-${index}`"
@@ -184,10 +184,10 @@ import {
   isObjectArrayWithNesting,
   composePaths,
   createDefaultValue,
-  Resolve,
-  JsonSchema,
   UISchemaElement,
   findUISchema,
+  Resolve,
+  JsonSchema,
 } from '@jsonforms/core';
 import { defineComponent } from '../vue';
 import {
@@ -264,7 +264,6 @@ const controlRenderer = defineComponent({
         this.control.rootSchema
       );
     },
-    //TODO: check is that is the appropate way to get the array schema, possibly it would be better for the core to have a property that exports that schema
     arraySchema(): JsonSchema | undefined {
       return Resolve.schema(
         this.control.rootSchema,
