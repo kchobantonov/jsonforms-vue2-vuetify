@@ -1,8 +1,12 @@
 import Vue from 'vue';
-import Vuetify from 'vuetify/lib';
+import Vuetify from 'vuetify/lib/framework';
+
 import { VuetifyPreset } from 'vuetify/types/services/presets';
-import 'vuetify/dist/vuetify.min.css';
+
+//import 'vuetify/dist/vuetify.min.css';
 import '@mdi/font/css/materialdesignicons.css';
+
+//import { preset } from '../presets/shrine/preset';
 
 Vue.use(Vuetify);
 

@@ -202,7 +202,7 @@ export default {
     readonly: { type: Boolean, required: true },
     restrict: { type: Boolean, required: true },
   },
-  data: function () {
+  data() {
     return {
       settings: false,
       validationModeData: this.validationMode,

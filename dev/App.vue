@@ -9,7 +9,15 @@
     >
       <v-list-item>
         <v-list-item-icon>
-          <v-img src="./assets/vuetify.svg" max-height="64" max-width="64" />
+          <vuetify-logo
+            width="64"
+            height="64"
+            :iconColor="
+              this.$vuetify.theme.dark
+                ? `${this.$vuetify.theme.themes.dark.primary}`
+                : `${this.$vuetify.theme.themes.light.primary}`
+            "
+          />
         </v-list-item-icon>
         <v-list-item-content>
           <v-list-item-title class="text-h6"> Examples </v-list-item-title>
@@ -37,10 +45,14 @@
         <v-container fill-height fluid
           ><v-row align="center" justify="center">
             <v-col>
-              <v-img
-                src="./assets/jsonforms.svg"
-                max-height="64"
-                max-width="64"
+              <json-forms-logo
+                width="64"
+                height="64"
+                :iconColor="
+                  this.$vuetify.theme.dark
+                    ? `${this.$vuetify.theme.themes.dark.primary}`
+                    : `${this.$vuetify.theme.themes.light.primary}`
+                "
               />
             </v-col>
             <v-col>JSON Forms </v-col>
@@ -82,10 +94,10 @@
     <!-- Sizes your content based upon application components -->
     <v-main>
       <!-- Provides the application the proper gutter -->
-      <v-container fluid class="demo" v-if="example != null">
+      <v-container fluid class="demo" v-if="selectedExample.value">
         <v-flex>
           <v-card>
-            <v-card-title>{{ example.title }}</v-card-title>
+            <v-card-title>{{ selectedExample.value.title }}</v-card-title>
             <v-card-text>
               <v-tabs v-model="activeTab">
                 <v-tab :key="0">Demo</v-tab>
@@ -95,10 +107,8 @@
                 <v-tab :key="3">Data</v-tab>
 
                 <v-tab-item :key="0">
-                  <json-forms
-                    :data="example.data"
-                    :schema="example.resolvedSchema"
-                    :uischema="example.uischema"
+                  <demo-form
+                    :example="selectedExample.value"
                     :renderers="renderers"
                     :cells="cells"
                     :config="config"
@@ -110,45 +120,75 @@
                 </v-tab-item>
                 <v-tab-item :key="1">
                   <v-card>
-                    <v-card-title>Schema</v-card-title>
+                    <v-card-title>
+                      <v-toolbar flat>
+                        <v-toolbar-title>Schema</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="reloadMonacoSchema">
+                          <v-icon>mdi-reload</v-icon>
+                        </v-btn>
+                        <v-btn icon @click="saveMonacoSchema">
+                          <v-icon>mdi-content-save</v-icon>
+                        </v-btn>
+                      </v-toolbar>
+                    </v-card-title>
                     <v-divider class="mx-4"></v-divider>
                     <monaco-editor
+                      v-if="monacoSchemaModel.value"
                       :theme="$vuetify.theme.dark ? 'vs-dark' : 'vs'"
                       height="500"
                       :language="`json`"
-                      v-model="monacoSchema"
-                      @change="onChangeEditSchema"
-                      :uri="`${example.schemaPrefix}-schema.json`"
+                      v-model="monacoSchemaModel.value"
                       :editorBeforeMount="registerValidatons"
                     ></monaco-editor>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item :key="2">
                   <v-card>
-                    <v-card-title>UI Schema</v-card-title>
+                    <v-card-title>
+                      <v-toolbar flat>
+                        <v-toolbar-title>UI Schema</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="reloadMonacoUiSchema">
+                          <v-icon>mdi-reload</v-icon>
+                        </v-btn>
+                        <v-btn icon @click="saveMonacoUiSchema">
+                          <v-icon>mdi-content-save</v-icon>
+                        </v-btn>
+                      </v-toolbar>
+                    </v-card-title>
                     <v-divider class="mx-4"></v-divider>
                     <monaco-editor
+                      v-if="monacoUiSchemaModel.value"
                       :theme="$vuetify.theme.dark ? 'vs-dark' : 'vs'"
                       height="500"
                       language="json"
-                      v-model="monacoUISchema"
-                      @change="onChangeEditUISchema"
-                      :uri="`${example.schemaPrefix}-uischema.json`"
+                      v-model="monacoUiSchemaModel.value"
                       :editorBeforeMount="registerValidatons"
                     ></monaco-editor>
                   </v-card>
                 </v-tab-item>
                 <v-tab-item :key="3">
                   <v-card>
-                    <v-card-title>Data</v-card-title>
+                    <v-card-title>
+                      <v-toolbar flat>
+                        <v-toolbar-title>Data</v-toolbar-title>
+                        <v-spacer></v-spacer>
+                        <v-btn icon @click="reloadMonacoData">
+                          <v-icon>mdi-reload</v-icon>
+                        </v-btn>
+                        <v-btn icon @click="saveMonacoData">
+                          <v-icon>mdi-content-save</v-icon>
+                        </v-btn>
+                      </v-toolbar>
+                    </v-card-title>
                     <v-divider class="mx-4"></v-divider>
                     <monaco-editor
+                      v-if="monacoDataModel.value"
                       :theme="$vuetify.theme.dark ? 'vs-dark' : 'vs'"
                       height="500"
                       language="json"
-                      v-model="monacoData"
-                      @change="onChangeEditData"
-                      :uri="`${example.schemaPrefix}-data.json`"
+                      v-model="monacoDataModel.value"
                       :editorBeforeMount="registerValidatons"
                     ></monaco-editor>
                   </v-card>
@@ -167,10 +207,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, Ref } from '@vue/composition-api';
-import { UISchemaElement, JsonSchema } from '@jsonforms/core';
-import { ErrorObject } from 'ajv';
-import { JsonForms, JsonFormsChangeEvent } from '@jsonforms/vue2';
+import { defineComponent, ref } from '@vue/composition-api';
+import {
+  JsonFormsRendererRegistryEntry,
+  JsonSchema,
+  UISchemaElement,
+} from '@jsonforms/core';
+import { JsonFormsChangeEvent } from '@jsonforms/vue2';
 import {
   createAjv,
   extendedVuetifyRenderers,
@@ -187,12 +230,16 @@ import {
   configureUISchemaValidation,
   configureDataValidation,
   EditorApi,
+  getMonacoModelForUri,
 } from './core/jsonSchemaValidation';
 
 import ThemeChanger from './components/ThemeChanger.vue';
 import Settings from './components/Settings.vue';
+import DemoForm from './components/DemoForm.vue';
 import MonacoEditor from './components/MonacoEditor.vue';
-import $RefParser from '@apidevtools/json-schema-ref-parser';
+import JsonFormsLogo from './components/JsonFormsLogo.vue';
+import VuetifyLogo from './components/VuetifyLogo.vue';
+import { Example } from './core/types';
 
 const ajv = createAjv({ useDefaults: true });
 ajvErrorsPlugin(ajv);
@@ -202,29 +249,32 @@ const myStyles = mergeStyles(defaultStyles, {
   control: { root: 'my-control' },
 });
 
-const renderers = Object.freeze(extendedVuetifyRenderers);
-
-type JsonInput = {
-  schemaPrefix: string;
-  title: string;
-  schema?: JsonSchema;
-  resolvedSchema?: JsonSchema;
-  uischema?: UISchemaElement;
-  data: Record<string, any>;
-} | null;
+const renderers = Object.freeze(
+  extendedVuetifyRenderers
+) as JsonFormsRendererRegistryEntry[];
 
 export default defineComponent({
   name: 'app',
   components: {
-    JsonForms,
+    DemoForm,
     MonacoEditor,
     ThemeChanger,
     Settings,
+    JsonFormsLogo,
+    VuetifyLogo,
   },
   data() {
-    const selectedExample = ref(-1);
-    const data = ref({});
-    const errors: Ref<ErrorObject[] | undefined> = ref(undefined);
+    const monacoSchemaModel = ref<monaco.editor.ITextModel | undefined>(
+      undefined
+    );
+    const monacoUiSchemaModel = ref<monaco.editor.ITextModel | undefined>(
+      undefined
+    );
+    const monacoDataModel = ref<monaco.editor.ITextModel | undefined>(
+      undefined
+    );
+
+    const selectedExample = ref<Example | undefined>(undefined);
 
     return {
       readonly: false,
@@ -232,20 +282,19 @@ export default defineComponent({
       activeTab: 0,
       renderers: renderers,
       cells: renderers,
-      handleDefaultsAjv: ajv,
       config: {
         restrict: true,
         trim: false,
         showUnfocusedDescription: false,
         hideRequiredAsterisk: true,
       },
+      handleDefaultsAjv: ajv,
       selectedExample,
-      data,
-      errors,
+      data: {},
+      monacoSchemaModel,
+      monacoUiSchemaModel,
+      monacoDataModel,
       examples,
-      monacoOptions: {
-        ...monaco.languages.json.jsonDefaults,
-      },
     };
   },
   methods: {
@@ -253,33 +302,159 @@ export default defineComponent({
       this.validationMode = validation;
     },
     onChange(event: JsonFormsChangeEvent) {
-      this.data.value = event.data;
-      this.errors.value = event.errors;
+      console.log('JsonForm data change');
 
-      console.log('JsonForm data change: ' + JSON.stringify(this.data.value));
+      this.data = event.data;
+      const example = this.selectedExample.value;
+      if (example) {
+        this.monacoDataModel.value = getMonacoModelForUri(
+          monaco.Uri.parse(this.toDataUri(example.id)),
+          this.data ? JSON.stringify(this.data, null, 2) : ''
+        );
+      }
     },
     selectExample(index: number) {
-      this.selectedExample.value = index;
+      const input = this.examples[index];
+      if (input) {
+        // recreate the example when we switch examples, any modified schema,uischema,data will be lost
+        const example = {
+          id: `${index}`,
+          title: input.title,
+          schema: input.input.schema,
+          uischema: input.input.uischema,
+          data: input.input.data,
+        };
+
+        this.selectedExample.value = example;
+
+        this.monacoSchemaModel.value = getMonacoModelForUri(
+          monaco.Uri.parse(this.toSchemaUri(example.id)),
+          example && example.schema
+            ? JSON.stringify(example.schema, null, 2)
+            : ''
+        );
+
+        this.monacoUiSchemaModel.value = getMonacoModelForUri(
+          monaco.Uri.parse(this.toUiSchemaUri(example.id)),
+          example && example.uischema
+            ? JSON.stringify(example.uischema, null, 2)
+            : ''
+        );
+
+        this.monacoDataModel.value = getMonacoModelForUri(
+          monaco.Uri.parse(this.toDataUri(example.id)),
+          example && example.data ? JSON.stringify(example.data, null, 2) : ''
+        );
+      } else {
+        this.selectedExample.value = undefined;
+        this.monacoSchemaModel.value = undefined;
+        this.monacoUiSchemaModel.value = undefined;
+        this.monacoDataModel.value = undefined;
+      }
     },
-    onChangeEditSchema() {
-      console.log('on change schema');
+    reloadMonacoSchema() {
+      const example = this.selectedExample.value;
+      if (example) {
+        this.monacoSchemaModel.value?.setValue(
+          example.schema ? JSON.stringify(example.schema, null, 2) : ''
+        );
+      }
     },
-    onChangeEditUISchema() {
-      console.log('on change ui schema');
+    saveMonacoSchema() {
+      const model = this.monacoSchemaModel.value;
+      const example = this.selectedExample.value;
+
+      if (model && example) {
+        const modelValue = model.getValue();
+        if (modelValue) {
+          let newJson: Record<string, any> | undefined = undefined;
+
+          try {
+            newJson = JSON.parse(modelValue);
+          } catch (error) {
+            console.error('Invalid Schema JSON: ' + error);
+          }
+
+          if (newJson) {
+            example.schema = newJson as JsonSchema;
+            // notify that the example was modified
+            this.selectedExample.value = { ...example };
+          }
+        }
+      }
     },
-    onChangeEditData() {
-      console.log('on change data');
+    reloadMonacoUiSchema() {
+      const example = this.selectedExample.value;
+      if (example) {
+        this.monacoUiSchemaModel.value?.setValue(
+          example.uischema ? JSON.stringify(example.uischema, null, 2) : ''
+        );
+      }
+    },
+    saveMonacoUiSchema() {
+      const model = this.monacoUiSchemaModel.value;
+      const example = this.selectedExample.value;
+
+      if (model && example) {
+        const modelValue = model.getValue();
+        if (modelValue) {
+          let newJson: Record<string, any> | undefined = undefined;
+
+          try {
+            newJson = JSON.parse(modelValue);
+          } catch (error) {
+            console.error('Invalid UISchema JSON: ' + error);
+          }
+
+          if (newJson) {
+            example.uischema = newJson as UISchemaElement;
+            // notify that the example was modified
+            this.selectedExample.value = { ...example };
+          }
+        }
+      }
+    },
+    reloadMonacoData() {
+      const example = this.selectedExample.value;
+      if (example) {
+        this.monacoDataModel.value?.setValue(
+          example.data ? JSON.stringify(example.data, null, 2) : ''
+        );
+      }
+    },
+    saveMonacoData() {
+      const model = this.monacoDataModel.value;
+      const example = this.selectedExample.value;
+
+      if (model && example) {
+        const modelValue = model.getValue();
+        if (modelValue) {
+          let newJson: Record<string, any> | undefined = undefined;
+
+          try {
+            newJson = JSON.parse(modelValue);
+          } catch (error) {
+            console.error('Invalid Data JSON: ' + error);
+          }
+
+          if (newJson) {
+            example.data = newJson;
+            // notify that the example was modified
+            this.selectedExample.value = { ...example };
+          }
+        }
+      }
     },
     registerValidatons(editor: EditorApi) {
       // register validation schemas
       for (let [index, example] of examples.entries()) {
         configureJsonSchemaValidation(
           editor,
-          monaco.Uri.parse(`${index}-schema.json`)
+          monaco.Uri.parse(this.toSchemaUri(`${index}`))
         );
         configureUISchemaValidation(
           editor,
-          monaco.Uri.parse(`${index}-uischema.json`)
+          monaco.Uri.parse(this.toUiSchemaUri(`${index}`))
         );
 
         const schema = {
@@ -290,89 +465,21 @@ export default defineComponent({
         if (example && example.input.schema) {
           configureDataValidation(
             editor,
-            `inmemory://${index}/schema.json`,
-            monaco.Uri.parse(`${index}-data.json`),
+            `inmemory://${this.toSchemaUri(index.toString())}`,
+            monaco.Uri.parse(this.toDataUri(`${index}`)),
             schema
           );
         }
       }
     },
-  },
-  computed: {
-    example(): JsonInput {
-      const e = this.examples[this.selectedExample.value];
-      if (e) {
-        let input = (e.input as JsonInput)!;
-        if (input.schema !== undefined && input?.resolvedSchema === undefined) {
-          // have the original schema while resolving the actual schema
-          input.resolvedSchema = input.schema;
-
-          $RefParser.dereference(
-            input.schema as $RefParser.JSONSchema,
-            (err, schema) => {
-              if (err) {
-                console.error(err);
-              } else {
-                // `schema` is just a normal JavaScript object that contains your entire JSON Schema,
-                // including referenced files, combined into a single object
-                input.resolvedSchema = schema as JsonSchema;
-              }
-            }
-          );
-        }
-        return {
-          schemaPrefix: `${this.selectedExample.value}`,
-          title: e.title,
-          schema: e.input.schema,
-          resolvedSchema: input.resolvedSchema,
-          uischema: e.input.uischema,
-          data: e.input.data,
-        };
-      }
-
-      return null;
+    toSchemaUri(id: string): string {
+      return `${id}-schema.json`;
     },
-    monacoSchema: {
-      get(comp) {
-        let schema = undefined;
-        if (comp.example && comp.example.schema) {
-          schema = { ...comp.example.schema };
-        }
-
-        return schema ? JSON.stringify(schema, null, 2) : '';
-      },
-      set(_: string) {
-        console.log('on change schema');
-      },
+    toUiSchemaUri(id: string): string {
+      return `${id}-uischema.json`;
     },
-    monacoUISchema: {
-      get(comp) {
-        let uischema = undefined;
-        if (comp.example && comp.example.uischema) {
-          uischema = comp.example.uischema;
-        }
-
-        return uischema ? JSON.stringify(uischema, null, 2) : '';
-      },
-
-      set(_: string) {
-        console.log('on change ui schema');
-      },
-    },
-    monacoData: {
-      cache: false,
-      get(comp) {
-        let data = undefined;
-        if (comp.data.value) {
-          data = comp.data.value;
-        }
-
-        return data ? JSON.stringify(data, null, 2) : '';
-      },
-
-      set(_: string) {
-        console.log('on change data');
-      },
+    toDataUri(id: string): string {
+      return `${id}-data.json`;
     },
   },
   provide() {
@@ -400,7 +507,7 @@ export default defineComponent({
 }
 </style>
 
-<style>
+<style scoped>
 /* required class */
 .code-editor {
 }

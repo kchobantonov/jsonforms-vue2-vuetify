@@ -28,9 +28,7 @@ export default {
   props: {
     width: { type: [String, Number], default: '100%' },
     height: { type: [String, Number], default: '100%' },
-    uri: String,
-    value: String,
-    defaultValue: { type: String, default: '' },
+    value: { type: Object as PropType<monaco.editor.ITextModel> },
     language: { type: String, default: 'javascript' },
     theme: { type: String, default: 'vs' },
     options: {
@@ -85,42 +83,12 @@ export default {
         }
       },
     },
-    uri(uri: string, prev: string) {
-      const { editor } = this;
-      if (editor && prev !== uri) {
-        const model = editor.getModel();
-        editor.setModel(
-          monaco.editor.createModel(
-            this.value,
-            this.language,
-            monaco.Uri.parse(uri)
-          )
-        );
-
-        if (model) {
-          model.dispose();
-        }
-      }
-    },
-    value(value) {
+    value(newModel: monaco.editor.ITextModel) {
       if (this.editor) {
         const { editor } = this;
-        const model = editor.getModel();
-        if (this.value != null && this.value !== model?.getValue()) {
-          this.prevent_trigger_change_event = true;
-          this.editor.pushUndoStop();
-          model?.pushEditOperations(
-            [],
-            [
-              {
-                range: model?.getFullModelRange(),
-                text: value,
-              },
-            ],
-            () => null
-          );
-          this.editor.pushUndoStop();
-          this.prevent_trigger_change_event = false;
+
+        if (!newModel.isDisposed()) {
+          editor.setModel(newModel);
         }
       }
     },
@@ -173,18 +141,15 @@ export default {
         this.subscription.dispose();
       }
     },
-
     initMonaco() {
-      const value = this.value != null ? this.value : this.defaultValue;
       const { language, theme, overrideServices, className } = this;
       // Before initializing monaco editor
       const options = { ...this.options, ...this.editorWillMount() };
-      const uri = this.uri != null ? monaco.Uri.parse(this.uri) : undefined;
 
       this.editor = monaco.editor.create(
         this.$refs.containerElement as HTMLElement,
         {
-          model: monaco.editor.createModel(value, language, uri),
+          model: this.value,
           language,
           ...(className ? { extraEditorClassName: className } : {}),
           ...options,
@@ -195,12 +160,10 @@ export default {
       // After initializing monaco editor
       this.editorDidMount(this.editor);
     },
-
     editorWillMount(): Record<string, any> {
       const options = this.editorBeforeMount(monaco);
       return options || {};
     },
-
     editorDidMount(editor: monaco.editor.IStandaloneCodeEditor): void {
       this.editorMounted(editor, monaco);
 

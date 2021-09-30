@@ -1,0 +1,109 @@
+@import '~vuetify/src/styles/styles.sass';
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500&display=swap');
+
+// Shrine specific variables
+$shrine-accent-color: #442c2e;
+$shrine-font-size: 16;
+$shrine-primary-color: #fedbd0;
+
+$shrine-chip-active-border-color: #8f8081;
+$shrine-chip-border-radius: 8px;
+$shrine-chip-border: 2px solid #fdd8d1;
+$shrine-chip-font-weight: 500;
+$shrine-chip-padding: 0 9px;
+$shrine-tabs-slider-border-color: #eaa4a4;
+$shrine-toolbar-background-color: #ffdbcf;
+
+// Preset variables
+$body-font-family: 'Rubik', sans-serif;
+$btn-font-weight: 500;
+$border-radius-root: 0;
+$chip-line-height: 1.5;
+$headings: (
+  'h1': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{96 / $shrine-font-size}rem,
+    'weight': 300,
+  ),
+  'h2': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{60 / $shrine-font-size}rem,
+    'weight': 300,
+  ),
+  'h3': (
+    'font-family': $heading-font-family,
+    'letter-spacing': initial,
+    'size': #{48 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+  'h4': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{34 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+  'h5': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{24 / $shrine-font-size}rem,
+    'weight': 500,
+  ),
+  'h6': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{20 / $shrine-font-size}rem,
+    'weight': 500,
+  ),
+  'subtitle-1': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{16 / $shrine-font-size}rem,
+    'weight': 500,
+  ),
+  'subtitle-2': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{14 / $shrine-font-size}rem,
+    'weight': 500,
+  ),
+  'body-1': (
+    'font-family': $heading-font-family,
+    'letter-spacing': initial,
+    'size': #{16 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+  'body-2': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{14 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+  'caption': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{12 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+  'overline': (
+    'font-family': $body-font-family,
+    'letter-spacing': initial,
+    'size': #{14 / $shrine-font-size}rem,
+    'weight': 400,
+  ),
+);
+$icon-sizes: (
+  'default': (
+    'height': 36,
+  ),
+);
+$material-light: (
+  'status-bar': (
+    'regular': #f0cac0,
+  ),
+  'background': #fedbd0,
+  'chips': transparent,
+);
+$tabs-item-focus-opacity: 0;
+$tabs-item-hover-opacity: 0;
